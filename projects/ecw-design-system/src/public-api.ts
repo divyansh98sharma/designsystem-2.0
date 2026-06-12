@@ -11,3 +11,7 @@ export { DESIGN_SYSTEM_VERSION } from './lib/version';
 /* Icon system (PE-315893) */
 export { EcwIconComponent } from './lib/icon/icon.component';
 export { EcwIconRegistry } from './lib/icon/icon-registry';
+
+/* Button (PE-256839) */
+export { EcwButtonComponent } from './lib/button/button.component';
+export type { EcwButtonVariant } from './lib/button/button.component';
