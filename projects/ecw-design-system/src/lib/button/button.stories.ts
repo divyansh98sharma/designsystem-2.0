@@ -6,7 +6,8 @@ import { EcwButtonComponent } from './button.component';
 const meta: Meta<EcwButtonComponent> = {
   title: 'Components/Button',
   component: EcwButtonComponent,
-  tags: ['autodocs'],
+  // Docs page is authored in button.mdx (usage + guidelines), so the
+  // auto-generated docs page is intentionally not enabled here.
   decorators: [moduleMetadata({ imports: [EcwButtonComponent, EcwIconComponent] })],
   argTypes: {
     variant: {
@@ -47,7 +48,23 @@ type Story = StoryObj<EcwButtonComponent>;
 
 /** Interactive playground driven by controls. */
 export const Playground: Story = {
-  args: { variant: 'primary', counter: undefined },
+  args: {
+    variant: 'primary',
+    type: 'button',
+    disabled: false,
+    leadingIcon: '',
+    trailingIcon: '',
+    iconFilled: false,
+    iconOnly: false,
+    ariaLabel: '',
+    counter: undefined,
+    alert: false,
+    alertLabel: 'New notifications',
+    split: false,
+    splitIcon: 'arrow_drop_down',
+    splitAriaLabel: 'More actions',
+    splitExpanded: false,
+  },
   render: (args) => ({
     props: args,
     template: `

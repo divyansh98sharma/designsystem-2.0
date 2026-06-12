@@ -1,0 +1,122 @@
+import { Meta, Canvas, Controls, ArgTypes, Primary } from '@storybook/addon-docs/blocks';
+import * as ButtonStories from './button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+The design-system button (`<ecw-button>`) — token-driven from the Figma `button`
+component tokens. It wraps native `<button>` element(s), so keyboard, focus and
+`disabled` behaviour are native and accessible by default.
+
+<Primary />
+
+---
+
+## Usage
+
+```ts
+import { EcwButtonComponent } from '@ecw/design-system';
+
+@Component({
+  imports: [EcwButtonComponent],
+  template: `
+    <ecw-button variant="primary" (ecwClick)="save()">Save</ecw-button>
+  `,
+})
+export class MyComponent {}
+```
+
+The label is projected via content (`<ecw-button>Save</ecw-button>`). Click is
+emitted through `(ecwClick)`; the split action emits `(splitClick)`.
+
+---
+
+## Variants
+
+Five variants map to their token sets. Choose by **intent**, not by colour.
+
+<Canvas of={ButtonStories.Variants} />
+
+| Variant | When to use |
+|---|---|
+| `primary` | The single, most important action in a view. Avoid more than one per group. |
+| `secondary` | Secondary actions that sit alongside a primary. |
+| `white` | Actions on coloured / image surfaces or dense toolbars. |
+| `error` | Destructive actions (delete, remove). Pair with a confirmation. |
+| `warning` | Caution actions that need attention but aren't destructive. |
+
+---
+
+## Guidelines
+
+**Do**
+
+- Keep labels short and action-led ("Save", "Add filter", "Delete").
+- Use exactly one `primary` button per action group.
+- Provide `ariaLabel` for every `iconOnly` button.
+- Use `error` for destructive actions and confirm before proceeding.
+
+**Don't**
+
+- Don't stack multiple `primary` buttons together — it removes the visual hierarchy.
+- Don't use an `iconOnly` button without `ariaLabel` (it ships an unlabeled control; a dev-mode warning fires).
+- Don't rely on the `alert` dot alone to convey state — it is decorative; the accessible text comes from `alertLabel`.
+- Don't put sentence-length text in a button — use a link or inline action instead.
+
+---
+
+## States
+
+Default and disabled. Hover / active / focus-visible are interactive — try the
+canvas. Focus uses a `focus-visible` outline (survives Windows high-contrast).
+
+<Canvas of={ButtonStories.States} />
+
+---
+
+## Icons
+
+Leading and/or trailing icons (16px). `iconOnly` renders a square icon button and
+**requires** `ariaLabel`.
+
+<Canvas of={ButtonStories.WithIcons} />
+
+---
+
+## Counter & alert
+
+A counter pill and a decorative alert-indicator dot. The alert state is announced
+to assistive tech via visually-hidden text (`alertLabel`, default
+"New notifications"; set `''` to suppress).
+
+<Canvas of={ButtonStories.CounterAndAlert} />
+
+---
+
+## Split action
+
+A second native button separated by a hairline divider. It advertises a popup via
+`aria-haspopup="menu"` and reflects open state through `aria-expanded` (bind
+`splitExpanded`). The menu itself (and its arrow-key navigation) is owned by the
+consumer via `(splitClick)`.
+
+<Canvas of={ButtonStories.Split} />
+
+---
+
+## Accessibility
+
+- **Keyboard**: native `<button>` — Tab to focus, Enter/Space to activate. No custom key handling needed.
+- **Disabled**: uses the native `disabled` attribute, so disabled buttons are removed from the tab order.
+- **Focus**: a `focus-visible` outline is always shown for keyboard users.
+- **Icon-only**: must set `ariaLabel`; otherwise the control has no accessible name (a dev-mode warning fires).
+- **Split**: carries `aria-haspopup="menu"` + `aria-expanded`; wire `aria-controls` to your menu's id from the consumer side.
+
+---
+
+## API
+
+<Controls of={ButtonStories.Playground} />
+
+<ArgTypes of={ButtonStories.Playground} />
