@@ -1,0 +1,28 @@
+/**
+ * =============================================================================
+ * Token Entry Point — tokens.css
+ * =============================================================================
+ *
+ * This file is the single entry point for all design tokens in the
+ * @ecw/design-system. It aggregates the three token layers in strict cascade
+ * order so that each layer can safely reference the variables defined in the
+ * layer(s) below it.
+ *
+ * Import order (DO NOT change):
+ *   1. primitives.css  — raw palette values; the only layer with literal values
+ *   2. semantics.css   — design-intent mappings; references primitives
+ *   3. components.css  — component-specific tokens; references semantics
+ *
+ * Usage:
+ *   Import this file once at the application (or library preview) root.
+ *   Individual component stylesheets should NOT import the token layers
+ *   directly — they should rely on this single aggregated import.
+ *
+ *   Example:
+ *     @import '@ecw/design-system/foundations/tokens/tokens.css';
+ * =============================================================================
+ */
+
+@import "./primitives.css";
+@import "./semantics.css";
+@import "./components.css";

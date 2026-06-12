@@ -1,0 +1,66 @@
+/**
+ * =============================================================================
+ * Layer 3 — Component Tokens
+ * =============================================================================
+ *
+ * Component tokens are component-specific design decisions. They provide a
+ * dedicated override surface for each component without coupling component
+ * styles directly to semantic or primitive tokens.
+ *
+ * Rules:
+ *   - SHOULD reference semantic tokens via var(--ecw-...) where possible.
+ *   - MAY fall back to primitive tokens only when no suitable semantic token
+ *     exists (and a TODO comment must explain why).
+ *   - MUST NOT contain literal values.
+ *
+ * Naming convention:
+ *   --ecw-<component>-<property>[-<variant>]
+ *
+ * Examples:
+ *   --ecw-button-bg-primary       → background of the primary button
+ *   --ecw-button-text-primary     → text colour on the primary button
+ *   --ecw-button-border-radius    → corner radius of all buttons
+ *   --ecw-button-padding-x        → horizontal padding of buttons
+ *   --ecw-input-border-default    → default border of text inputs
+ *   --ecw-input-border-focus      → focus-state border of text inputs
+ *
+ * Lifecycle:
+ *   Component tokens are ADDED alongside each component Jira. Do not add
+ *   tokens here for components that have not yet been built.
+ *
+ * MISSING-TOKEN POLICY:
+ *   If a required component token is absent, document it in the PR description.
+ *   If the gap is system-wide, recommend opening a new Jira.
+ *   Never hardcode raw values in component styles.
+ * =============================================================================
+ */
+
+:root {
+  /* TODO: Component tokens are added alongside each component Jira.
+     No components have been built yet — this block will be populated
+     incrementally as components land. */
+
+  /* ---------------------------------------------------------------------------
+   * COMMENTED-OUT ILLUSTRATIVE EXAMPLES — naming pattern only, NOT live tokens
+   * ---------------------------------------------------------------------------
+   *
+   * Button
+   * --ecw-button-bg-primary:          var(--ecw-color-brand-primary);
+   * --ecw-button-bg-primary-hover:    var(--ecw-color-brand-primary-hover);
+   * --ecw-button-bg-primary-disabled: var(--ecw-color-bg-subtle);
+   * --ecw-button-text-primary:        var(--ecw-color-text-on-brand);
+   * --ecw-button-text-disabled:       var(--ecw-color-text-disabled);
+   * --ecw-button-border-radius:       var(--ecw-radius-control);
+   * --ecw-button-padding-x:           var(--ecw-space-4);
+   * --ecw-button-padding-y:           var(--ecw-space-2);
+   *
+   * Input (illustrative — implemented with its own Jira)
+   * --ecw-input-bg:                   var(--ecw-color-bg-default);
+   * --ecw-input-border-default:       var(--ecw-color-border-default);
+   * --ecw-input-border-focus:         var(--ecw-color-border-focus);
+   * --ecw-input-border-error:         var(--ecw-color-border-error);
+   * --ecw-input-text:                 var(--ecw-color-text-default);
+   * --ecw-input-border-radius:        var(--ecw-radius-control);
+   * ---------------------------------------------------------------------------
+   */
+}

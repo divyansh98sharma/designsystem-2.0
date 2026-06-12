@@ -16,6 +16,8 @@ yarn-error.log
 # Storybook
 /storybook-static
 *.log
+# Compodoc output consumed by Storybook docs (regenerated on each build)
+projects/ecw-design-system/documentation.json
 
 # Chromatic
 build-storybook.log
@@ -35,3 +37,5 @@ Thumbs.db
 
 # Testing
 /coverage
+
+*storybook.log

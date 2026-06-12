@@ -1,0 +1,28 @@
+{
+  "name": "@ecw/design-system",
+  "version": "0.0.1",
+  "description": "eCW Design System — a token-driven, accessible Angular 21 component library built from approved Figma designs.",
+  "keywords": [
+    "angular",
+    "design-system",
+    "components",
+    "design-tokens",
+    "ecw"
+  ],
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/divyansh98sharma/designsystem-2.0.git"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "peerDependencies": {
+    "@angular/common": "^21.2.0",
+    "@angular/core": "^21.2.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}

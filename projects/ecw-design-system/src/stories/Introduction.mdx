@@ -1,0 +1,43 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# Welcome to the eCW Design System
+
+`@ecw/design-system` is the official UI component library for eCW products. It provides a shared visual language — expressed as design tokens, accessible Angular components, and living Storybook documentation — so that product teams build consistent, high-quality interfaces without reinventing common patterns.
+
+---
+
+## Principles
+
+### Token-driven
+
+Every visual decision — colour, spacing, radius, typography — flows through a three-layer CSS custom-property system with the `--ecw-` prefix. Tokens are the contract between design and engineering. Figma publishes token values; this library consumes them.
+
+### Figma is the source of truth
+
+No component is built without an approved Figma design. Engineering implements what design specifies; discrepancies are resolved in Figma first, then reflected in code.
+
+### Accessible by default
+
+All components target WCAG 2.1 AA as a minimum. Accessibility is not a post-build audit — it is part of the acceptance criteria for every component Jira.
+
+### No external UI libraries
+
+The design system contains only first-party Angular components. PrimeNG and all other third-party UI component libraries are prohibited. Every component is purpose-built here.
+
+---
+
+## How this Storybook is organised
+
+Stories are grouped by category in the left-hand sidebar:
+
+- **Introduction** — you are here. Orientation and principles.
+- **Foundations** — design tokens (architecture, colour, spacing, typography). These stories document the token system and serve as Chromatic smoke tests for the render pipeline.
+- **Components** — added one Jira at a time as components are designed, reviewed, and built. No component stories exist yet.
+
+---
+
+## Status
+
+The library is in its foundational setup phase (PE-314767). The token architecture is in place; token values will be populated in PE-315920 / PE-315919 once the design team publishes them from Figma. Component work begins after the token system is complete.
