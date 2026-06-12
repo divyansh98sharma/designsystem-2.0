@@ -5,7 +5,7 @@ import { EcwStackComponent } from './stack.component';
 const meta: Meta<EcwStackComponent> = {
   title: 'Primitives/Stack',
   component: EcwStackComponent,
-  tags: ['autodocs'],
+  // Docs page is authored in stack.mdx (usage + guidelines).
   decorators: [moduleMetadata({ imports: [EcwStackComponent] })],
   argTypes: {
     direction: { control: 'inline-radio', options: ['row', 'column'] },
@@ -47,7 +47,14 @@ const boxes = `
 
 /** Interactive playground driven by controls. */
 export const Playground: Story = {
-  args: { direction: 'column', gap: 8 },
+  args: {
+    direction: 'column',
+    gap: 8,
+    align: 'stretch',
+    justify: 'start',
+    wrap: false,
+    inline: false,
+  },
   render: (args) => ({
     props: args,
     template: `

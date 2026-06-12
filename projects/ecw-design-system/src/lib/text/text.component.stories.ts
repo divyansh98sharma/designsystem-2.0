@@ -5,7 +5,7 @@ import { EcwTextComponent } from './text.component';
 const meta: Meta<EcwTextComponent> = {
   title: 'Primitives/Text',
   component: EcwTextComponent,
-  tags: ['autodocs'],
+  // Docs page is authored in text.mdx (usage + guidelines).
   decorators: [moduleMetadata({ imports: [EcwTextComponent] })],
   argTypes: {
     size: { control: 'inline-radio', options: [12, 14, 16] },
@@ -39,7 +39,13 @@ type Story = StoryObj<EcwTextComponent>;
 
 /** Interactive playground driven by controls. */
 export const Playground: Story = {
-  args: { size: 14, weight: 'regular' },
+  args: {
+    size: 14,
+    weight: 'regular',
+    color: 'default',
+    align: 'left',
+    truncate: false,
+  },
   render: (args) => ({
     props: args,
     template: `

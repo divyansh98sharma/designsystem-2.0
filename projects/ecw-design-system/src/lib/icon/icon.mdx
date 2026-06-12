@@ -1,0 +1,76 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as IconStories from './icon.stories';
+
+<Meta of={IconStories} />
+
+# Icon
+
+The design-system icon primitive (`<ecw-icon>`). It renders **Material Symbols**
+by `name` and falls back to **custom SVGs** registered with `EcwIconRegistry`
+(registered names take precedence). Icons inherit `currentColor`, so set color
+via a semantic `--ecw-icon-*` token. Decorative by default (`aria-hidden`); pass
+`label` for meaningful icons.
+
+---
+
+## Usage
+
+```ts
+import { EcwIconComponent } from '@ecw/design-system';
+
+@Component({
+  imports: [EcwIconComponent],
+  template: `
+    <ecw-icon name="home" />
+  `,
+})
+export class MyComponent {}
+```
+
+The `name` input takes a Material Symbols ligature (or a registered custom-icon
+name). Size defaults to `24`px; set `filled` for the Material `FILL` axis. Color
+is inherited from `currentColor` — drive it with a `--ecw-icon-*` token.
+
+---
+
+## Guidelines
+
+**Do**
+
+- Provide a `label` for meaningful icons (e.g. an icon that conveys an action or status on its own).
+- Keep purely decorative icons label-less so they're hidden from assistive tech.
+- Set color through a semantic `--ecw-icon-*` token rather than a hard-coded value.
+- Use `filled` to express selected / active emphasis where the design calls for it.
+
+**Don't**
+
+- Don't leave a meaningful icon without a `label` — it ships an unlabeled, inaccessible control.
+- Don't add a `label` to a decorative icon — it creates redundant announcements next to adjacent text.
+- Don't rely on color alone to convey meaning; pair it with a `label` or visible text.
+- Don't hard-code pixel colors; prefer the icon tokens so theming stays consistent.
+
+---
+
+## Gallery
+
+Material Symbols, sizes, semantic color tokens, the fill axis, custom-SVG
+fallbacks, and accessibility examples.
+
+<Canvas of={IconStories.Overview} />
+
+---
+
+## Accessibility
+
+- **Meaningful** icons: set `label` → the host gets `role="img"` + `aria-label`, so the icon is announced.
+- **Decorative** icons: omit `label` → the host gets `aria-hidden="true"` and is skipped by assistive tech.
+- **Sizing**: `size` (px) applies to both the box (`width`/`height`) and the glyph `font-size`; choose a size that keeps the icon legible at its intended density.
+- **Color**: icons inherit `currentColor`; ensure the resolved `--ecw-icon-*` token meets contrast against its surface.
+
+---
+
+## API
+
+<Controls of={IconStories.Playground} />
+
+<ArgTypes of={IconStories.Playground} />

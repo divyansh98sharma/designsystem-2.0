@@ -5,7 +5,7 @@ import { EcwBoxComponent } from './box.component';
 const meta: Meta<EcwBoxComponent> = {
   title: 'Primitives/Box',
   component: EcwBoxComponent,
-  tags: ['autodocs'],
+  // Docs page is authored in box.mdx (usage + guidelines).
   decorators: [moduleMetadata({ imports: [EcwBoxComponent] })],
   argTypes: {
     padding: { control: 'select', options: [undefined, 2, 4, 8, 12, 16] },
@@ -41,6 +41,8 @@ type Story = StoryObj<EcwBoxComponent>;
 export const Playground: Story = {
   args: {
     padding: 16,
+    paddingX: undefined,
+    paddingY: undefined,
     radius: 8,
     display: 'block',
     background: 'subtle',

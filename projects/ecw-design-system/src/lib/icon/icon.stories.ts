@@ -152,7 +152,7 @@ class IconsFoundationComponent {
 const meta: Meta<IconsFoundationComponent> = {
   title: 'Foundations/Icons',
   component: IconsFoundationComponent,
-  tags: ['autodocs'],
+  // Docs page is authored in icon.mdx (usage + guidelines + a11y).
   decorators: [
     moduleMetadata({ imports: [EcwIconComponent] }),
   ],
@@ -183,7 +183,7 @@ export const Playground: PlaygroundStory = {
     template: `<ecw-icon [name]="name" [size]="size" [filled]="filled" [label]="label"></ecw-icon>`,
     moduleMetadata: { imports: [EcwIconComponent] },
   }),
-  args: { name: 'home', size: 48, filled: false },
+  args: { name: 'home', size: 48, filled: false, label: '' },
   argTypes: {
     name: { control: 'text', description: 'Material Symbols name or registered custom name' },
     size: { control: { type: 'number', min: 12, max: 96, step: 2 } },
