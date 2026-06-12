@@ -2,71 +2,72 @@
  * =============================================================================
  * Layer 1 — Primitive Tokens
  * =============================================================================
- *
- * Primitive tokens are raw, context-free values — the palette of the design
- * system. They are the ONLY layer that contains literal values (hex codes,
- * numbers, raw strings). No other layer should ever contain a literal value.
- *
- * Naming convention:
- *   --ecw-<category>-<scale>
- *
- * Examples by category:
- *   Color   → --ecw-color-blue-500, --ecw-color-neutral-0
- *   Space   → --ecw-space-1, --ecw-space-4, --ecw-space-8
- *   Radius  → --ecw-radius-sm, --ecw-radius-md, --ecw-radius-full
- *   Font    → --ecw-font-size-sm, --ecw-font-weight-bold, --ecw-line-height-base
- *
- * Populated by: PE-315920 (token architecture) / PE-315919 (colors)
- * Values are supplied by the design team directly from Figma.
- *
- * MISSING-TOKEN POLICY:
- *   If a required primitive token is absent, document it in the PR description.
- *   If the gap is system-wide, recommend opening a new Jira.
- *   Never hardcode raw values in semantic or component styles.
+ * Raw, context-free values — the only layer with literal values.
+ * Source of truth: Figma "Primitives" collection (CODE-A-TON Library).
+ * Naming mirrors the Figma variable path: --ecw-<category>-<...>.
+ * Font weights are mapped from Figma names to CSS numeric weights
+ * (Regular 400, Medium 500, Semi Bold 600, Bold 700).
  * =============================================================================
  */
 
 :root {
-  /* Populated in PE-315920 / PE-315919 — values supplied by the design team
-     from Figma. Do not invent values. */
+  /* typography */
+  --ecw-typography-font-family-inter: 'Inter';
+  --ecw-typography-font-size-12: 12px;
+  --ecw-typography-font-size-14: 14px;
+  --ecw-typography-font-size-16: 16px;
+  --ecw-typography-line-height-16: 16px;
+  --ecw-typography-line-height-20: 20px;
+  --ecw-typography-font-weight-regular: 400;  /* Figma: "Regular" */
+  --ecw-typography-font-weight-medium: 500;  /* Figma: "Medium" */
+  --ecw-typography-font-weight-semi-bold: 600;  /* Figma: "Semi Bold" */
+  --ecw-typography-font-weight-bold: 700;  /* Figma: "Bold" */
+  --ecw-typography-letter-spacing-0: 0;
 
-  /* ---------------------------------------------------------------------------
-   * COMMENTED-OUT ILLUSTRATIVE EXAMPLES — naming pattern only, NOT live tokens
-   * ---------------------------------------------------------------------------
-   *
-   * Color scale (palette)
-   * --ecw-color-blue-50:    #...;
-   * --ecw-color-blue-100:   #...;
-   * --ecw-color-blue-500:   #...;
-   * --ecw-color-blue-900:   #...;
-   * --ecw-color-neutral-0:  #...;
-   * --ecw-color-neutral-50: #...;
-   * --ecw-color-neutral-900:#...;
-   * --ecw-color-red-500:    #...;
-   * --ecw-color-green-500:  #...;
-   *
-   * Spacing scale (e.g. 4-point grid)
-   * --ecw-space-1:  ...; /* 4px  * /
-   * --ecw-space-2:  ...; /* 8px  * /
-   * --ecw-space-3:  ...; /* 12px * /
-   * --ecw-space-4:  ...; /* 16px * /
-   * --ecw-space-6:  ...; /* 24px * /
-   * --ecw-space-8:  ...; /* 32px * /
-   *
-   * Border-radius scale
-   * --ecw-radius-none: ...;
-   * --ecw-radius-sm:   ...;
-   * --ecw-radius-md:   ...;
-   * --ecw-radius-lg:   ...;
-   * --ecw-radius-full: ...;
-   *
-   * Font-size scale
-   * --ecw-font-size-xs:  ...;
-   * --ecw-font-size-sm:  ...;
-   * --ecw-font-size-md:  ...;
-   * --ecw-font-size-lg:  ...;
-   * --ecw-font-size-xl:  ...;
-   * --ecw-font-size-2xl: ...;
-   * ---------------------------------------------------------------------------
-   */
+  /* radius */
+  --ecw-radius-2: 2px;
+  --ecw-radius-4: 4px;
+  --ecw-radius-8: 8px;
+  --ecw-radius-999: 999px;
+
+  /* space */
+  --ecw-space-2: 2px;
+  --ecw-space-4: 4px;
+  --ecw-space-8: 8px;
+  --ecw-space-12: 12px;
+  --ecw-space-16: 16px;
+
+  /* stroke */
+  --ecw-stroke-full: 1px;
+
+  /* color */
+  --ecw-color-teal-25: #E9F5F3;
+  --ecw-color-teal-75: #D7E5E3;
+  --ecw-color-teal-300: #4DE0CF;
+  --ecw-color-teal-400: #53CBBD;
+  --ecw-color-teal-500: #13B8A6;
+  --ecw-color-teal-700: #007B95;
+  --ecw-color-teal-900: #02506F;
+  --ecw-color-neutral-0: #FFFFFF;
+  --ecw-color-neutral-25: #FBFBFB;
+  --ecw-color-neutral-50: #F7F7F7;
+  --ecw-color-neutral-200: #EBEBEB;
+  --ecw-color-neutral-250: #E6E6E6;
+  --ecw-color-neutral-300: #E1E1E1;
+  --ecw-color-neutral-400: #BCBCBC;
+  --ecw-color-neutral-550: #969696;
+  --ecw-color-neutral-600: #717171;
+  --ecw-color-neutral-650: #4B4B4B;
+  --ecw-color-neutral-1000: #000000;
+  --ecw-color-error-700: #D82727;
+  --ecw-color-error-800: #B82020;
+  --ecw-color-error-900: #B42121;
+  --ecw-color-error-1000: #350101;
+  --ecw-color-warning-300: #FCDE71;
+  --ecw-color-warning-400: #FFD84B;
+  --ecw-color-warning-800: #A7891C;
+
+  /* size */
+  --ecw-size-16: 16px;
+  --ecw-size-24: 24px;
 }

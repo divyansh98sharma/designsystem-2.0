@@ -2,79 +2,116 @@
  * =============================================================================
  * Layer 2 — Semantic Tokens
  * =============================================================================
- *
- * Semantic tokens express DESIGN INTENT. They give meaning to primitives by
- * describing HOW a value is used, not what it is. Consumers of the design
- * system should prefer semantic tokens over primitive tokens in almost every
- * situation.
- *
- * Rules:
- *   - MUST reference primitive tokens via var(--ecw-...), never literal values.
- *   - One level of indirection only — do NOT chain semantic → semantic unless
- *     there is a strong conceptual reason (e.g. an alias token).
- *
- * Naming convention:
- *   --ecw-color-<role>-<variant>
- *   --ecw-<property>-<role>
- *
- * Examples:
- *   --ecw-color-bg-default       → background of a surface
- *   --ecw-color-bg-subtle        → slightly recessed surface
- *   --ecw-color-text-default     → body text
- *   --ecw-color-text-muted       → secondary/supporting text
- *   --ecw-color-text-on-brand    → text placed on a brand-coloured surface
- *   --ecw-color-border-default   → standard border
- *   --ecw-color-border-focus     → keyboard-focus ring
- *   --ecw-color-brand-primary    → primary brand accent
- *   --ecw-color-feedback-error   → error / destructive state
- *   --ecw-color-feedback-success → success / positive state
- *   --ecw-radius-control         → radius for interactive controls
- *   --ecw-radius-surface         → radius for cards / panels
- *
- * Populated by: PE-315920 (token architecture)
- *
- * MISSING-TOKEN POLICY:
- *   If a required semantic token is absent, document it in the PR description.
- *   If the gap is system-wide, recommend opening a new Jira.
- *   Never hardcode raw values in component styles.
+ * Design-intent tokens. Each references a primitive via var(--ecw-...).
+ * Source of truth: Figma "Semantics" collection (CODE-A-TON Library).
+ * Trailing comments show the resolved primitive value for review only.
  * =============================================================================
  */
 
 :root {
-  /* TODO: Populate in PE-315920 — semantic mappings to be defined once
-     primitive tokens (PE-315919) are finalised by the design team. */
+  /* space */
+  --ecw-space-xx-small: var(--ecw-space-2);  /* 2 */
+  --ecw-space-x-small: var(--ecw-space-4);  /* 4 */
+  --ecw-space-small: var(--ecw-space-8);  /* 8 */
+  --ecw-space-medium: var(--ecw-space-12);  /* 12 */
+  --ecw-space-large: var(--ecw-space-16);  /* 16 */
 
-  /* ---------------------------------------------------------------------------
-   * COMMENTED-OUT ILLUSTRATIVE EXAMPLES — naming pattern only, NOT live tokens
-   * ---------------------------------------------------------------------------
-   *
-   * Backgrounds
-   * --ecw-color-bg-default:        var(--ecw-color-neutral-0);
-   * --ecw-color-bg-subtle:         var(--ecw-color-neutral-50);
-   * --ecw-color-bg-inverse:        var(--ecw-color-neutral-900);
-   *
-   * Text
-   * --ecw-color-text-default:      var(--ecw-color-neutral-900);
-   * --ecw-color-text-muted:        var(--ecw-color-neutral-500);
-   * --ecw-color-text-on-brand:     var(--ecw-color-neutral-0);
-   * --ecw-color-text-disabled:     var(--ecw-color-neutral-300);
-   *
-   * Borders
-   * --ecw-color-border-default:    var(--ecw-color-neutral-200);
-   * --ecw-color-border-focus:      var(--ecw-color-blue-500);
-   * --ecw-color-border-error:      var(--ecw-color-red-500);
-   *
-   * Brand
-   * --ecw-color-brand-primary:     var(--ecw-color-blue-500);
-   * --ecw-color-brand-primary-hover: var(--ecw-color-blue-600);
-   *
-   * Feedback
-   * --ecw-color-feedback-error:    var(--ecw-color-red-500);
-   * --ecw-color-feedback-success:  var(--ecw-color-green-500);
-   *
-   * Radius — semantic roles
-   * --ecw-radius-control:          var(--ecw-radius-md);
-   * --ecw-radius-surface:          var(--ecw-radius-lg);
-   * ---------------------------------------------------------------------------
-   */
+  /* padding */
+  --ecw-padding-xx-small: var(--ecw-space-2);  /* 2 */
+  --ecw-padding-x-small: var(--ecw-space-4);  /* 4 */
+  --ecw-padding-small: var(--ecw-space-8);  /* 8 */
+  --ecw-padding-medium: var(--ecw-space-12);  /* 12 */
+  --ecw-padding-large: var(--ecw-space-16);  /* 16 */
+
+  /* radius */
+  --ecw-radius-small: var(--ecw-radius-2);  /* 2 */
+  --ecw-radius-medium: var(--ecw-radius-4);  /* 4 */
+  --ecw-radius-large: var(--ecw-radius-8);  /* 8 */
+  --ecw-radius-full: var(--ecw-radius-999);  /* 999 */
+
+  /* background */
+  --ecw-background-interactive-container-primary-default: var(--ecw-color-teal-25);  /* #E9F5F3 */
+  --ecw-background-interactive-container-primary-hover: var(--ecw-color-teal-75);  /* #D7E5E3 */
+  --ecw-background-interactive-container-secondary-default: var(--ecw-color-neutral-200);  /* #EBEBEB */
+  --ecw-background-interactive-container-secondary-hover: var(--ecw-color-neutral-250);  /* #E6E6E6 */
+  --ecw-background-interactive-container-white-default: var(--ecw-color-neutral-25);  /* #FBFBFB */
+  --ecw-background-interactive-container-white-hover: var(--ecw-color-neutral-25);  /* #FBFBFB */
+  --ecw-background-interactive-container-error-default: var(--ecw-color-error-700);  /* #D82727 */
+  --ecw-background-interactive-container-error-hover: var(--ecw-color-error-700);  /* #D82727 */
+  --ecw-background-interactive-container-warning-default: var(--ecw-color-warning-300);  /* #FCDE71 */
+  --ecw-background-interactive-container-warning-hover: var(--ecw-color-warning-400);  /* #FFD84B */
+  --ecw-background-interactive-container-disabled-default: var(--ecw-color-neutral-50);  /* #F7F7F7 */
+  --ecw-background-interactive-control-unchecked-default: var(--ecw-color-neutral-0);  /* #FFFFFF */
+  --ecw-background-interactive-control-unchecked-hover: var(--ecw-color-neutral-0);  /* #FFFFFF */
+  --ecw-background-interactive-control-disabled-default: var(--ecw-color-neutral-0);  /* #FFFFFF */
+  --ecw-background-interactive-control-checked-default: var(--ecw-color-teal-700);  /* #007B95 */
+  --ecw-background-interactive-control-checked-hover: var(--ecw-color-teal-900);  /* #02506F */
+  --ecw-background-interactive-control-indeterminate-default: var(--ecw-color-teal-700);  /* #007B95 */
+  --ecw-background-interactive-control-indeterminate-hover: var(--ecw-color-teal-900);  /* #02506F */
+  --ecw-background-surface-container-default: var(--ecw-color-neutral-0);  /* #FFFFFF */
+
+  /* border */
+  --ecw-border-interactive-container-primary-default: var(--ecw-color-teal-400);  /* #53CBBD */
+  --ecw-border-interactive-container-primary-hover: var(--ecw-color-teal-400);  /* #53CBBD */
+  --ecw-border-interactive-container-secondary-default: var(--ecw-color-neutral-300);  /* #E1E1E1 */
+  --ecw-border-interactive-container-secondary-hover: var(--ecw-color-neutral-400);  /* #BCBCBC */
+  --ecw-border-interactive-container-white-default: var(--ecw-color-neutral-200);  /* #EBEBEB */
+  --ecw-border-interactive-container-white-hover: var(--ecw-color-neutral-200);  /* #EBEBEB */
+  --ecw-border-interactive-container-error-default: var(--ecw-color-error-900);  /* #B42121 */
+  --ecw-border-interactive-container-error-hover: var(--ecw-color-error-1000);  /* #350101 */
+  --ecw-border-interactive-container-warning-default: var(--ecw-color-warning-800);  /* #A7891C */
+  --ecw-border-interactive-container-warning-hover: var(--ecw-color-warning-800);  /* #A7891C */
+  --ecw-border-interactive-container-disabled-default: var(--ecw-color-neutral-200);  /* #EBEBEB */
+  --ecw-border-interactive-control-unchecked-default: var(--ecw-color-neutral-0);  /* #FFFFFF */
+  --ecw-border-interactive-control-unchecked-hover: var(--ecw-color-neutral-0);  /* #FFFFFF */
+  --ecw-border-interactive-control-checked-default: var(--ecw-color-teal-700);  /* #007B95 */
+  --ecw-border-interactive-control-checked-hover: var(--ecw-color-teal-900);  /* #02506F */
+  --ecw-border-interactive-control-disabled-default: #FFFFFF;  /* NOTE: raw value — not aliased in Figma; flagged in PR */
+  --ecw-border-interactive-control-indeterminate-default: var(--ecw-color-teal-700);  /* #007B95 */
+  --ecw-border-interactive-control-indeterminate-hover: var(--ecw-color-teal-900);  /* #02506F */
+
+  /* text */
+  --ecw-text-interactive-primary-default: var(--ecw-color-neutral-1000);  /* #000000 */
+  --ecw-text-interactive-secondary-default: var(--ecw-color-neutral-1000);  /* #000000 */
+  --ecw-text-interactive-white-default: var(--ecw-color-neutral-1000);  /* #000000 */
+  --ecw-text-interactive-error-default: var(--ecw-color-neutral-0);  /* #FFFFFF */
+  --ecw-text-interactive-warning-default: var(--ecw-color-neutral-1000);  /* #000000 */
+  --ecw-text-interactive-disabled-default: var(--ecw-color-neutral-600);  /* #717171 */
+  --ecw-text-interactive-control-default: var(--ecw-color-neutral-1000);  /* #000000 */
+  --ecw-text-interactive-control-disabled: var(--ecw-color-neutral-550);  /* #969696 */
+  --ecw-text-content-default: var(--ecw-color-neutral-1000);  /* #000000 */
+  --ecw-text-content-inverse-default: var(--ecw-color-neutral-0);  /* #FFFFFF */
+
+  /* icon */
+  --ecw-icon-interactive-primary-default: var(--ecw-color-neutral-1000);  /* #000000 */
+  --ecw-icon-interactive-secondary-default: var(--ecw-color-neutral-1000);  /* #000000 */
+  --ecw-icon-interactive-white-default: var(--ecw-color-neutral-1000);  /* #000000 */
+  --ecw-icon-interactive-error-default: var(--ecw-color-neutral-0);  /* #FFFFFF */
+  --ecw-icon-interactive-warning-default: var(--ecw-color-neutral-1000);  /* #000000 */
+  --ecw-icon-interactive-disabled-default: var(--ecw-color-neutral-600);  /* #717171 */
+  --ecw-icon-interactive-control-checkmark-default: var(--ecw-color-neutral-0);  /* #FFFFFF */
+
+  /* stroke-width */
+  --ecw-stroke-width-1: var(--ecw-stroke-full);  /* 1 */
+
+  /* size */
+  --ecw-size-x-small: var(--ecw-size-16);  /* 16 */
+  --ecw-size-small: var(--ecw-size-24);  /* 24 */
+
+  /* typography */
+  --ecw-typography-label-small-font-family: var(--ecw-typography-font-family-inter);  /* Inter */
+  --ecw-typography-label-small-font-size: var(--ecw-typography-font-size-12);  /* 12 */
+  --ecw-typography-label-small-font-weight: var(--ecw-typography-font-weight-regular);  /* Regular */
+  --ecw-typography-label-small-line-height: var(--ecw-typography-line-height-16);  /* 16 */
+  --ecw-typography-label-small-letter-spacing: var(--ecw-typography-letter-spacing-0);  /* 0 */
+
+  /* indicator */
+  --ecw-indicator-interactive-control-unchecked-default: var(--ecw-color-neutral-600);  /* #717171 */
+  --ecw-indicator-interactive-control-unchecked-hover: var(--ecw-color-neutral-650);  /* #4B4B4B */
+  --ecw-indicator-interactive-control-unchecked-disabled: var(--ecw-color-neutral-400);  /* #BCBCBC */
+  --ecw-indicator-interactive-control-checked-default: var(--ecw-color-teal-700);  /* #007B95 */
+  --ecw-indicator-interactive-control-checked-hover: var(--ecw-color-teal-900);  /* #02506F */
+  --ecw-indicator-interactive-control-checked-disabled: var(--ecw-color-neutral-400);  /* #BCBCBC */
+  --ecw-indicator-interactive-control-indeterminate-default: var(--ecw-color-teal-700);  /* #007B95 */
+  --ecw-indicator-interactive-control-indeterminate-hover: var(--ecw-color-teal-900);  /* #02506F */
 }
