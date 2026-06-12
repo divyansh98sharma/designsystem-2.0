@@ -1,0 +1,11 @@
+:host {
+  display: block;
+  font-family: var(--ecw-typography-font-family-inter), system-ui, sans-serif;
+  letter-spacing: var(--ecw-typography-letter-spacing-0);
+}
+
+:host(.ecw-text--truncate) {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

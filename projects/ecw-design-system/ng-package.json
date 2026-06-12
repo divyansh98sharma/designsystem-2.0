@@ -5,9 +5,10 @@
     "entryFile": "src/public-api.ts"
   },
   "assets": [
-    "./src/lib/foundations/tokens/primitives.css",
-    "./src/lib/foundations/tokens/semantics.css",
-    "./src/lib/foundations/tokens/components.css",
-    "./src/lib/foundations/tokens/tokens.css"
+    {
+      "input": "src/lib/foundations",
+      "glob": "**/*.css",
+      "output": "foundations"
+    }
   ]
 }
