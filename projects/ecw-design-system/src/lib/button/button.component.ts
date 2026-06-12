@@ -4,9 +4,12 @@ import {
   EventEmitter,
   Output,
   booleanAttribute,
+  effect,
   input,
 } from '@angular/core';
 import { EcwIconComponent } from '../icon/icon.component';
+
+declare const ngDevMode: boolean | undefined;
 
 export type EcwButtonVariant =
   | 'primary'
@@ -32,8 +35,9 @@ export type EcwButtonVariant =
  * - Icons are 16px and sit before/after the label; `iconOnly` renders a square
  *   icon button (requires `ariaLabel`).
  * - The split/divider action is modelled as a second native button separated by
- *   a hairline divider; its dropdown/menu behaviour is left to the consumer via
- *   `(splitClick)`.
+ *   a hairline divider. It advertises a popup (`aria-haspopup="menu"`) and
+ *   reflects open state via `aria-expanded` (bind `splitExpanded`); the actual
+ *   menu and its keyboard handling are owned by the consumer via `(splitClick)`.
  * - Focus-visible ring is an accessibility addition (no focus token in Figma).
  */
 @Component({
@@ -81,6 +85,13 @@ export class EcwButtonComponent {
   /** Show the alert-indicator dot. */
   readonly alert = input(false, { transform: booleanAttribute });
 
+  /**
+   * Accessible text for the alert indicator. The dot itself is decorative
+   * (`aria-hidden`); this is folded into the button's accessible name so the
+   * alert state is announced. Set to `''` to suppress the announcement.
+   */
+  readonly alertLabel = input<string>('New notifications');
+
   /** Render the split ("divider") action segment. */
   readonly split = input(false, { transform: booleanAttribute });
 
@@ -90,9 +101,32 @@ export class EcwButtonComponent {
   /** Accessible label for the split action. */
   readonly splitAriaLabel = input<string>('More actions');
 
+  /**
+   * Whether the split action's popup (menu) is currently open. Drives
+   * `aria-expanded` on the split segment. The split button advertises a popup
+   * via `aria-haspopup="menu"`; the consumer owns the actual menu and toggles
+   * this input from their `(splitClick)` handler.
+   */
+  readonly splitExpanded = input(false, { transform: booleanAttribute });
+
   /** Emitted on the main action click. */
   @Output() readonly ecwClick = new EventEmitter<MouseEvent>();
 
   /** Emitted on the split action click. */
   @Output() readonly splitClick = new EventEmitter<MouseEvent>();
+
+  constructor() {
+    // Dev-only guard: an icon-only button has no visible text, so it MUST
+    // carry an accessible name or it ships as an unlabeled "button".
+    if (typeof ngDevMode === 'undefined' || ngDevMode) {
+      effect(() => {
+        if (this.iconOnly() && !this.ariaLabel()) {
+          console.warn(
+            '[ecw-button] `iconOnly` is set without `ariaLabel` — the button ' +
+              'has no accessible name. Provide `ariaLabel` for screen readers.',
+          );
+        }
+      });
+    }
+  }
 }

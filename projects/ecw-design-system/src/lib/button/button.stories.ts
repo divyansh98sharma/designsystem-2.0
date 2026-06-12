@@ -22,9 +22,11 @@ const meta: Meta<EcwButtonComponent> = {
     ariaLabel: { control: 'text' },
     counter: { control: 'text' },
     alert: { control: 'boolean' },
+    alertLabel: { control: 'text' },
     split: { control: 'boolean' },
     splitIcon: { control: 'text' },
     splitAriaLabel: { control: 'text' },
+    splitExpanded: { control: 'boolean' },
   },
   parameters: {
     docs: {
@@ -60,9 +62,11 @@ export const Playground: Story = {
         [ariaLabel]="ariaLabel"
         [counter]="counter"
         [alert]="alert"
+        [alertLabel]="alertLabel"
         [split]="split"
         [splitIcon]="splitIcon"
         [splitAriaLabel]="splitAriaLabel"
+        [splitExpanded]="splitExpanded"
       >Button</ecw-button>
     `,
   }),

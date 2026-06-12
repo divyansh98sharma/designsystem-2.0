@@ -17,6 +17,9 @@
   @if (trailingIcon(); as ti) {
     <ecw-icon [name]="ti" [size]="16" [filled]="iconFilled()" />
   }
+  @if (alert() && alertLabel()) {
+    <span class="ecw-button__sr-only">{{ alertLabel() }}</span>
+  }
 </button>
 
 @if (split()) {
@@ -25,6 +28,8 @@
     type="button"
     [disabled]="disabled()"
     [attr.aria-label]="splitAriaLabel()"
+    aria-haspopup="menu"
+    [attr.aria-expanded]="splitExpanded()"
     (click)="splitClick.emit($event)"
   >
     <ecw-icon [name]="splitIcon()" [size]="16" />
