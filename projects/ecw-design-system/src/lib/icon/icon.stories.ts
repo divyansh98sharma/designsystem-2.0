@@ -8,8 +8,8 @@
 import { Component, inject } from '@angular/core';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
-import { EcwIconComponent } from '../../lib/icon/icon.component';
-import { EcwIconRegistry } from '../../lib/icon/icon-registry';
+import { EcwIconComponent } from './icon.component';
+import { EcwIconRegistry } from './icon-registry';
 
 // Custom SVG icons (fill/stroke = currentColor; viewBox, no fixed width/height).
 const CUSTOM_ICONS: Record<string, string> = {

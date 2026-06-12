@@ -1,0 +1,5 @@
+@if (svg(); as customSvg) {
+  <span class="ecw-icon__svg" [innerHTML]="customSvg"></span>
+} @else {
+  <span class="ecw-icon__glyph material-symbols-outlined">{{ name() }}</span>
+}

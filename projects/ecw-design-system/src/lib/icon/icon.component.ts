@@ -29,13 +29,8 @@ import { EcwIconRegistry } from './icon-registry';
   selector: 'ecw-icon',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    @if (svg(); as customSvg) {
-      <span class="ecw-icon__svg" [innerHTML]="customSvg"></span>
-    } @else {
-      <span class="ecw-icon__glyph material-symbols-outlined">{{ name() }}</span>
-    }
-  `,
+  templateUrl: './icon.component.html',
+  styleUrl: './icon.component.scss',
   host: {
     class: 'ecw-icon',
     '[style.width.px]': 'size()',
@@ -46,37 +41,6 @@ import { EcwIconRegistry } from './icon-registry';
     '[attr.aria-label]': 'label() ?? null',
     '[attr.aria-hidden]': 'label() ? null : "true"',
   },
-  styles: [
-    `
-      :host {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        line-height: 1;
-        color: inherit;
-        flex: 0 0 auto;
-      }
-      .ecw-icon__glyph {
-        font-size: inherit;
-        line-height: 1;
-        /* Material Symbols variable-font axes (FILL is set on the host) */
-        font-variation-settings: inherit;
-        -webkit-font-smoothing: antialiased;
-        user-select: none;
-      }
-      .ecw-icon__svg {
-        display: inline-flex;
-        width: 1em;
-        height: 1em;
-      }
-      .ecw-icon__svg ::ng-deep svg {
-        width: 100%;
-        height: 100%;
-        display: block;
-        fill: currentColor;
-      }
-    `,
-  ],
 })
 export class EcwIconComponent {
   private readonly registry = inject(EcwIconRegistry);
