@@ -1,0 +1,36 @@
+<button
+  class="ecw-button__main"
+  [type]="type()"
+  [disabled]="disabled()"
+  [attr.aria-label]="iconOnly() ? ariaLabel() : null"
+  (click)="ecwClick.emit($event)"
+>
+  @if (leadingIcon(); as li) {
+    <ecw-icon [name]="li" [size]="16" [filled]="iconFilled()" />
+  }
+  @if (!iconOnly()) {
+    <span class="ecw-button__label"><ng-content /></span>
+  }
+  @if (counter() !== undefined && counter() !== null) {
+    <span class="ecw-button__counter">{{ counter() }}</span>
+  }
+  @if (trailingIcon(); as ti) {
+    <ecw-icon [name]="ti" [size]="16" [filled]="iconFilled()" />
+  }
+</button>
+
+@if (split()) {
+  <button
+    class="ecw-button__split"
+    type="button"
+    [disabled]="disabled()"
+    [attr.aria-label]="splitAriaLabel()"
+    (click)="splitClick.emit($event)"
+  >
+    <ecw-icon [name]="splitIcon()" [size]="16" />
+  </button>
+}
+
+@if (alert()) {
+  <span class="ecw-button__alert" aria-hidden="true"></span>
+}

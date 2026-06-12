@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
-import { EcwButtonComponent } from '../../lib/button/button.component';
-import { EcwIconComponent } from '../../lib/icon/icon.component';
+import { EcwIconComponent } from '../icon/icon.component';
+import { EcwButtonComponent } from './button.component';
 
 const meta: Meta<EcwButtonComponent> = {
   title: 'Components/Button',
