@@ -59,7 +59,8 @@ registry.register('home', '<svg viewBox="0 0 24 24">…</svg>', 'material');
 - **Color**: SVGs inherit `currentColor` — set color via a `--ecw-icon-*`
   semantic token. Registered SVGs must use `fill="currentColor"` /
   `stroke="currentColor"` and include a `viewBox` (no fixed width/height).
-- **Sizing**: `size` (px) drives the box; the SVG scales to fill it.
+- **Sizing**: fixed at **16×16px** — the single design-system icon size. There
+  is no `size` input; the SVG scales to fill the 16px box.
 - **Accessibility**: decorative by default (`aria-hidden="true"`); pass `label`
   for a meaningful icon (`role="img"` + `aria-label`).
 
