@@ -29,6 +29,8 @@ export type {
 /* Icon system (PE-315893) */
 export { EcwIconComponent } from './lib/icon/icon.component';
 export { EcwIconRegistry } from './lib/icon/icon-registry';
+export type { EcwIconSource } from './lib/icon/icon-registry';
+export { EcwIconLoader } from './lib/icon/icon-loader';
 
 /* Button (PE-256839) */
 export { EcwButtonComponent } from './lib/button/button.component';

@@ -1,19 +1,30 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
+  effect,
   inject,
   input,
+  signal,
 } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
-import { EcwIconRegistry } from './icon-registry';
+import { EcwIconLoader } from './icon-loader';
+import { EcwIconSource } from './icon-registry';
+
+export type { EcwIconSource } from './icon-registry';
 
 /**
  * `<ecw-icon>` — the design-system icon primitive.
  *
- * Renders a Material Symbols glyph by `name` (ligature), and falls back to a
- * registered custom SVG ({@link EcwIconRegistry}) when one exists for that name
- * — registered names take precedence, so custom SVGs can override Material too.
+ * Renders an inline **SVG** (no webfont/glyph) resolved by `name` from one of
+ * three sources via `source`: Material Symbols (Outlined, weight 300),
+ * Healthicons (outline), or a locally-registered custom SVG. All icons are the
+ * outline variant.
+ *
+ * SVGs are fetched live from the jsDelivr CDN and cached (see
+ * {@link EcwIconLoader}), so new/updated icons are picked up automatically. For
+ * offline / air-gapped use, pre-register SVGs with {@link EcwIconRegistry} —
+ * overrides win and need no network. Resolution is therefore **async**: nothing
+ * renders until the SVG is available.
  *
  * Color: inherits `currentColor`, so set the color via a semantic icon token,
  * e.g. `color: var(--ecw-icon-interactive-primary-default)`.
@@ -21,9 +32,6 @@ import { EcwIconRegistry } from './icon-registry';
  * Accessibility:
  * - Decorative by default → `aria-hidden="true"` (no `label`).
  * - Provide `label` for a meaningful icon → `role="img"` + `aria-label`.
- *
- * The Material Symbols webfont is NOT bundled by the library; the consuming app
- * (and Storybook) must load it. Custom SVG icons have no font dependency.
  */
 @Component({
   selector: 'ecw-icon',
@@ -35,20 +43,21 @@ import { EcwIconRegistry } from './icon-registry';
     class: 'ecw-icon',
     '[style.width.px]': 'size()',
     '[style.height.px]': 'size()',
-    '[style.font-size.px]': 'size()',
-    '[style.font-variation-settings]': `'"FILL" ' + (filled() ? 1 : 0)`,
     '[attr.role]': 'label() ? "img" : null',
     '[attr.aria-label]': 'label() ?? null',
     '[attr.aria-hidden]': 'label() ? null : "true"',
   },
 })
 export class EcwIconComponent {
-  private readonly registry = inject(EcwIconRegistry);
+  private readonly loader = inject(EcwIconLoader);
 
-  /** Material Symbols name (ligature) or a registered custom-icon name. */
+  /** Icon name: a Material Symbols / Healthicons name, or a registered custom name. */
   readonly name = input.required<string>();
 
-  /** Rendered size in px (applied to both width/height and glyph font-size). */
+  /** Which icon set to resolve `name` from. */
+  readonly source = input<EcwIconSource>('material');
+
+  /** Rendered size in px (applied to both width and height). */
   readonly size = input<number>(24);
 
   /**
@@ -57,9 +66,21 @@ export class EcwIconComponent {
    */
   readonly label = input<string>();
 
-  /** Material Symbols `FILL` axis (filled vs outlined). Ignored by custom SVGs. */
-  readonly filled = input<boolean>(false);
+  /** The resolved inline SVG, or `null` while loading / when not found. */
+  readonly svg = signal<SafeHtml | null>(null);
 
-  /** Resolved custom SVG for `name`, or `undefined` to fall back to Material. */
-  readonly svg = computed<SafeHtml | undefined>(() => this.registry.get(this.name()));
+  constructor() {
+    effect(() => {
+      const name = this.name();
+      const source = this.source();
+      // Reset while the (async) load is in flight.
+      this.svg.set(null);
+      this.loader.load(source, name).then((resolved) => {
+        // Ignore a stale result if the inputs changed mid-flight.
+        if (this.name() === name && this.source() === source) {
+          this.svg.set(resolved);
+        }
+      });
+    });
+  }
 }

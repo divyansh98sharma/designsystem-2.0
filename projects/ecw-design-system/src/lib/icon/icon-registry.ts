@@ -2,16 +2,25 @@ import { Injectable, inject } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 /**
- * Registry for custom SVG icons used as a fallback when an icon is not part of
- * the Material Symbols set (or when a brand/product-specific glyph is needed).
+ * The icon source `<ecw-icon>` resolves a `name` from:
+ * - `material`     — Material Symbols **Outlined**, weight 300 (SVG).
+ * - `healthicons`  — the open-source Healthicons **outline** set (SVG).
+ * - `custom`       — a brand/product SVG supplied locally (registry only).
+ */
+export type EcwIconSource = 'material' | 'healthicons' | 'custom';
+
+/**
+ * Local override store for `<ecw-icon>`. Icons are normally fetched live from
+ * the jsDelivr CDN (see {@link EcwIconLoader}); anything registered here takes
+ * precedence and is used instead — the offline / air-gapped escape hatch, and
+ * the only mechanism for `source: 'custom'`.
  *
- * Register raw SVG markup once (typically at app bootstrap), then reference it
- * by name through `<ecw-icon name="...">`. Registered names take precedence
- * over Material Symbols, so a custom SVG can also override a Material glyph.
+ * Register raw SVG markup once (typically at bootstrap); registered names then
+ * render without any network request.
  *
  * SVG authoring guidance:
  * - Use `fill="currentColor"` (and/or `stroke="currentColor"`) so the icon
- *   inherits color from `--ecw-icon-*` / `color` like Material Symbols do.
+ *   inherits color from `--ecw-icon-*` / `color`.
  * - Include a `viewBox`; omit hard-coded width/height so it scales to `size`.
  *
  * Security: markup is passed through Angular's DomSanitizer. Only register SVG
@@ -20,27 +29,34 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Injectable({ providedIn: 'root' })
 export class EcwIconRegistry {
   private readonly sanitizer = inject(DomSanitizer);
-  private readonly icons = new Map<string, SafeHtml>();
+  private readonly overrides = new Map<string, SafeHtml>();
 
-  /** Register a single custom icon by name. */
-  register(name: string, svg: string): void {
-    this.icons.set(name, this.sanitizer.bypassSecurityTrustHtml(svg));
+  private key(source: EcwIconSource, name: string): string {
+    return `${source}:${name}`;
   }
 
-  /** Register many custom icons at once: `{ name: '<svg>…</svg>' }`. */
-  registerAll(icons: Record<string, string>): void {
+  /** Register a local override SVG for `name` under `source` (default `custom`). */
+  register(name: string, svg: string, source: EcwIconSource = 'custom'): void {
+    this.overrides.set(
+      this.key(source, name),
+      this.sanitizer.bypassSecurityTrustHtml(svg),
+    );
+  }
+
+  /** Register many overrides at once: `{ name: '<svg>…</svg>' }`. */
+  registerAll(icons: Record<string, string>, source: EcwIconSource = 'custom'): void {
     for (const [name, svg] of Object.entries(icons)) {
-      this.register(name, svg);
+      this.register(name, svg, source);
     }
   }
 
-  /** Returns the sanitized SVG for a registered name, or `undefined`. */
-  get(name: string): SafeHtml | undefined {
-    return this.icons.get(name);
+  /** Returns the sanitized override SVG for `source`/`name`, or `undefined`. */
+  get(source: EcwIconSource, name: string): SafeHtml | undefined {
+    return this.overrides.get(this.key(source, name));
   }
 
-  /** Whether a custom icon is registered under `name`. */
-  has(name: string): boolean {
-    return this.icons.has(name);
+  /** Whether a local override is registered for `source`/`name`. */
+  has(source: EcwIconSource, name: string): boolean {
+    return this.overrides.has(this.key(source, name));
   }
 }

@@ -1,196 +1,206 @@
 // ---------------------------------------------------------------------------
 // Foundations / Icons (PE-315893)
 //
-// Documents the icon system: the <ecw-icon> component (Material Symbols by
-// default) with a custom-SVG fallback via EcwIconRegistry. The Material Symbols
-// webfont is loaded for the preview in .storybook/preview-head.html.
+// The <ecw-icon> component renders inline SVGs (no webfont/glyph) from three
+// sources, all the OUTLINE variant:
+//   - material     → Material Symbols Outlined, weight 300 (@material-symbols/svg-300)
+//   - healthicons  → Healthicons outline (healthicons@2)
+//   - custom       → locally-registered SVG (EcwIconRegistry)
+// The Overview is a live browser of EVERY icon in the selected source, fetched
+// from the jsDelivr CDN. Icons lazy-load on scroll (@defer on viewport), so the
+// full set can render without thousands of simultaneous requests.
 // ---------------------------------------------------------------------------
-import { Component, inject } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import { EcwIconComponent } from './icon.component';
-import { EcwIconRegistry } from './icon-registry';
+import { EcwIconLoader } from './icon-loader';
+import { EcwIconRegistry, EcwIconSource } from './icon-registry';
 
-// Custom SVG icons (fill/stroke = currentColor; viewBox, no fixed width/height).
+// A custom SVG override (fill = currentColor; viewBox, no fixed width/height).
 const CUSTOM_ICONS: Record<string, string> = {
-  pulse:
-    '<svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2 12h4l2-6 4 12 2-6h8"/></svg>',
   'brand-mark':
     '<svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="6" fill="currentColor"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  pulse:
+    '<svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2 12h4l2-6 4 12 2-6h8"/></svg>',
 };
 
-const MATERIAL_NAMES = [
-  'home', 'search', 'settings', 'favorite', 'delete', 'edit',
-  'check_circle', 'warning', 'info', 'close', 'menu', 'arrow_forward',
-  'calendar_month', 'person', 'notifications', 'download',
-];
-
-const COLOR_TOKENS = [
-  { label: 'primary', token: '--ecw-icon-interactive-primary-default' },
-  { label: 'secondary', token: '--ecw-icon-interactive-secondary-default' },
-  { label: 'error', token: '--ecw-icon-interactive-error-default' },
-  { label: 'warning', token: '--ecw-icon-interactive-warning-default' },
-  { label: 'disabled', token: '--ecw-icon-interactive-disabled-default' },
-];
+const SOURCES: EcwIconSource[] = ['material', 'healthicons', 'custom'];
 
 @Component({
-  selector: 'ecw-icons-foundation',
+  selector: 'ecw-icon-browser',
   standalone: true,
   imports: [EcwIconComponent],
   template: `
-    <div class="ic-root">
-      <section class="ic-section">
-        <h3 class="ic-h">Material Symbols (default)</h3>
-        <p class="ic-desc">Pass a Material Symbols name to <code>&lt;ecw-icon&gt;</code>. Decorative by default.</p>
-        <div class="ic-grid">
-          @for (n of materialNames; track n) {
-            <div class="ic-cell">
-              <ecw-icon [name]="n"></ecw-icon>
-              <code class="ic-name">{{ n }}</code>
-            </div>
+    <div class="ib-root">
+      <div class="ib-controls">
+        <div class="ib-tabs">
+          @for (s of sources; track s) {
+            <button
+              type="button"
+              class="ib-tab"
+              [class.is-active]="source() === s"
+              (click)="setSource(s)"
+            >{{ s }}</button>
           }
         </div>
-      </section>
+        <input
+          class="ib-search"
+          type="search"
+          placeholder="Search {{ source() }} icons…"
+          [value]="query()"
+          (input)="onSearch($event)"
+        />
+      </div>
 
-      <section class="ic-section">
-        <h3 class="ic-h">Sizes</h3>
-        <div class="ic-row">
-          @for (s of sizes; track s) {
-            <div class="ic-cell">
-              <ecw-icon name="settings" [size]="s"></ecw-icon>
-              <code class="ic-name">{{ s }}px</code>
-            </div>
-          }
-        </div>
-      </section>
-
-      <section class="ic-section">
-        <h3 class="ic-h">Color (semantic icon tokens)</h3>
-        <p class="ic-desc">Icons inherit <code>currentColor</code> — set color via a <code>--ecw-icon-*</code> token.</p>
-        <div class="ic-row">
-          @for (c of colorTokens; track c.token) {
-            <div class="ic-cell">
-              <ecw-icon name="favorite" [size]="32" [style.color]="'var(' + c.token + ')'"></ecw-icon>
-              <code class="ic-name">{{ c.label }}</code>
-            </div>
-          }
-        </div>
-      </section>
-
-      <section class="ic-section">
-        <h3 class="ic-h">Fill axis</h3>
-        <div class="ic-row">
-          <div class="ic-cell">
-            <ecw-icon name="favorite" [size]="32" [filled]="false"></ecw-icon>
-            <code class="ic-name">outlined</code>
-          </div>
-          <div class="ic-cell">
-            <ecw-icon name="favorite" [size]="32" [filled]="true"></ecw-icon>
-            <code class="ic-name">filled</code>
-          </div>
-        </div>
-      </section>
-
-      <section class="ic-section">
-        <h3 class="ic-h">Custom SVG fallback</h3>
-        <p class="ic-desc">
-          Names registered with <code>EcwIconRegistry</code> render their SVG instead of a
-          Material glyph (registered names take precedence). SVGs use <code>currentColor</code>.
+      @if (loading()) {
+        <p class="ib-status">Loading {{ source() }} icons…</p>
+      } @else {
+        <p class="ib-status">
+          {{ filtered().length }} of {{ total() }} {{ source() }} icons
+          @if (query()) { matching “{{ query() }}” }
         </p>
-        <div class="ic-row">
-          @for (n of customNames; track n) {
-            <div class="ic-cell">
-              <ecw-icon [name]="n" [size]="32" [style.color]="'var(--ecw-icon-interactive-primary-default)'"></ecw-icon>
-              <code class="ic-name">{{ n }}</code>
-            </div>
-          }
-        </div>
-      </section>
 
-      <section class="ic-section">
-        <h3 class="ic-h">Accessibility</h3>
-        <div class="ic-a11y">
-          <div class="ic-cell">
-            <ecw-icon name="info" [size]="24"></ecw-icon>
-            <span class="ic-a11y-note">Decorative → <code>aria-hidden="true"</code> (no label)</span>
+        @if (filtered().length === 0) {
+          <p class="ib-empty">No icons match “{{ query() }}”.</p>
+        } @else {
+          <div class="ib-grid">
+            @for (n of filtered(); track n) {
+              <div class="ib-cell" [title]="n">
+                @defer (on viewport) {
+                  <ecw-icon [name]="n" [source]="source()" [size]="24" />
+                } @placeholder {
+                  <div class="ib-ph"></div>
+                }
+                <code class="ib-name">{{ n }}</code>
+              </div>
+            }
           </div>
-          <div class="ic-cell">
-            <ecw-icon name="delete" [size]="24" label="Delete item"></ecw-icon>
-            <span class="ic-a11y-note">Meaningful → <code>role="img"</code> + <code>aria-label</code></span>
-          </div>
-        </div>
-      </section>
+        }
+      }
     </div>
   `,
   styles: [`
-    .ic-root { font-family: 'Inter', system-ui, sans-serif; color: #1a1a1a; max-width: 960px; }
-    .ic-section { padding: 8px 0 24px; border-bottom: 1px solid #ebebeb; }
-    .ic-section:last-child { border-bottom: 0; }
-    .ic-h { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: #717171; margin: 0 0 4px; }
-    .ic-desc { font-size: 13px; color: #4b4b4b; margin: 0 0 16px; max-width: 64ch; }
-    .ic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 12px; }
-    .ic-row { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-end; }
-    .ic-cell { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px; border: 1px solid #f0f0f0; border-radius: 8px; min-width: 72px; color: #1a1a1a; }
-    .ic-name { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; color: #007b95; text-align: center; word-break: break-word; }
-    .ic-a11y { display: flex; flex-wrap: wrap; gap: 16px; }
-    .ic-a11y .ic-cell { flex-direction: row; align-items: center; gap: 10px; }
-    .ic-a11y-note { font-size: 12px; color: #4b4b4b; }
-    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .ib-root { font-family: 'Inter', system-ui, sans-serif; color: #1a1a1a; }
+    .ib-controls {
+      position: sticky; top: 0; z-index: 1; background: #fff;
+      display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+      padding: 12px 0; border-bottom: 1px solid #ebebeb; margin-bottom: 16px;
+    }
+    .ib-tabs { display: inline-flex; gap: 4px; background: #f3f3f3; border-radius: 8px; padding: 3px; }
+    .ib-tab {
+      border: 0; background: transparent; cursor: pointer; text-transform: capitalize;
+      font: inherit; font-size: 13px; color: #4b4b4b; padding: 6px 12px; border-radius: 6px;
+    }
+    .ib-tab.is-active { background: #fff; color: #007b95; font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
+    .ib-search {
+      flex: 1 1 240px; min-width: 200px; font: inherit; font-size: 14px;
+      padding: 8px 12px; border: 1px solid #e1e1e1; border-radius: 8px; color: #1a1a1a;
+    }
+    .ib-search:focus-visible { outline: 2px solid #007b95; outline-offset: 1px; border-color: #007b95; }
+    .ib-status { font-size: 13px; color: #717171; margin: 0 0 16px; }
+    .ib-empty { font-size: 14px; color: #4b4b4b; }
+    .ib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; }
+    .ib-cell {
+      display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center;
+      padding: 12px 8px; border: 1px solid #f0f0f0; border-radius: 8px; color: #1a1a1a; min-height: 78px;
+    }
+    .ib-cell:hover { border-color: #d7e5e3; background: #f7fbfa; }
+    .ib-ph { width: 24px; height: 24px; border-radius: 4px; background: #f0f0f0; }
+    .ib-name { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; color: #007b95; word-break: break-word; line-height: 1.3; }
   `],
 })
-class IconsFoundationComponent {
-  readonly materialNames = MATERIAL_NAMES;
-  readonly customNames = Object.keys(CUSTOM_ICONS);
-  readonly sizes = [16, 20, 24, 32, 48];
-  readonly colorTokens = COLOR_TOKENS;
+class IconBrowserComponent {
+  private readonly loader = inject(EcwIconLoader);
+  private readonly registry = inject(EcwIconRegistry);
+
+  readonly sources = SOURCES;
+  readonly source = signal<EcwIconSource>('material');
+  readonly query = signal('');
+  readonly loading = signal(true);
+  private readonly names = signal<string[]>([]);
+
+  readonly total = computed(() => this.names().length);
+  readonly filtered = computed(() => {
+    const q = this.query().trim().toLowerCase();
+    const list = this.names();
+    return q ? list.filter((n) => n.includes(q)) : list;
+  });
 
   constructor() {
-    inject(EcwIconRegistry).registerAll(CUSTOM_ICONS);
+    this.registry.registerAll(CUSTOM_ICONS, 'custom');
+
+    // Load the full name list whenever the source changes.
+    effect(() => {
+      const src = this.source();
+      this.loading.set(true);
+      this.names.set([]);
+      const load =
+        src === 'custom'
+          ? Promise.resolve(Object.keys(CUSTOM_ICONS).sort())
+          : this.loader.listNames(src);
+      load.then((names) => {
+        if (this.source() === src) {
+          this.names.set(names);
+          this.loading.set(false);
+        }
+      });
+    });
+  }
+
+  setSource(s: EcwIconSource): void {
+    this.source.set(s);
+    this.query.set('');
+  }
+
+  onSearch(event: Event): void {
+    this.query.set((event.target as HTMLInputElement).value);
   }
 }
 
-const meta: Meta<IconsFoundationComponent> = {
+const meta: Meta<IconBrowserComponent> = {
   title: 'Foundations/Icons',
-  component: IconsFoundationComponent,
+  component: IconBrowserComponent,
   // Docs page is authored in icon.mdx (usage + guidelines + a11y).
-  decorators: [
-    moduleMetadata({ imports: [EcwIconComponent] }),
-  ],
+  decorators: [moduleMetadata({ imports: [EcwIconComponent] })],
   parameters: {
+    layout: 'fullscreen',
     docs: {
       description: {
         component:
-          'The icon system (PE-315893): the `<ecw-icon>` component renders **Material Symbols** ' +
-          'by name and falls back to **custom SVGs** registered with `EcwIconRegistry` ' +
-          '(registered names take precedence). Icons inherit `currentColor` — set color with a ' +
-          '`--ecw-icon-*` token. Decorative by default (`aria-hidden`); pass `label` for ' +
-          'meaningful icons. The Material Symbols and Inter webfonts are loaded for this preview ' +
-          'only — the library references them but does not bundle fonts.',
+          'The icon system (PE-315893): `<ecw-icon>` renders inline **SVGs** (no webfont) ' +
+          'from three sources via the `source` input — **Material Symbols** (Outlined, weight ' +
+          '300), **Healthicons** (outline), and **custom** registered SVGs. The Overview is a ' +
+          'live browser of every icon in the selected source (search + tabs), fetched from the ' +
+          'jsDelivr CDN; icons lazy-load on scroll. Icons inherit `currentColor` — set color ' +
+          'with a `--ecw-icon-*` token. Decorative by default (`aria-hidden`); pass `label`.',
       },
     },
   },
 };
 export default meta;
 
-type GalleryStory = StoryObj<IconsFoundationComponent>;
-export const Overview: GalleryStory = {};
+type BrowserStory = StoryObj<IconBrowserComponent>;
 
-// Interactive single-icon playground driven by Storybook controls.
+/** Browse every icon in a source. Switch sources with the tabs; filter with search. */
+export const Overview: BrowserStory = {};
+
+// Interactive single-icon playground.
 type PlaygroundStory = StoryObj<EcwIconComponent>;
 export const Playground: PlaygroundStory = {
   render: (args) => ({
     props: args,
-    template: `<ecw-icon [name]="name" [size]="size" [filled]="filled" [label]="label"></ecw-icon>`,
     moduleMetadata: { imports: [EcwIconComponent] },
+    template: `<ecw-icon [name]="name" [source]="source" [size]="size" [label]="label"></ecw-icon>`,
   }),
-  args: { name: 'home', size: 48, filled: false, label: '' },
+  args: { name: 'home', source: 'material', size: 48, label: '' },
   argTypes: {
-    name: { control: 'text', description: 'Material Symbols name or registered custom name' },
+    name: { control: 'text', description: 'Material Symbols / Healthicons name, or a registered custom name' },
+    source: { control: 'inline-radio', options: ['material', 'healthicons', 'custom'], description: 'Icon set to resolve from' },
     size: { control: { type: 'number', min: 12, max: 96, step: 2 } },
-    filled: { control: 'boolean' },
     label: { control: 'text', description: 'Accessible label; omit for decorative icons' },
   },
   parameters: {
-    docs: { description: { story: 'Tweak the controls to preview a single Material Symbols icon.' } },
+    docs: { description: { story: 'Preview a single icon. Try `source: healthicons` with name `ambulance`.' } },
   },
 };
