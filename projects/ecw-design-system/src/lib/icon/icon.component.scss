@@ -1,7 +1,10 @@
 :host {
+  // Fixed 16x16 — the single design-system icon size.
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 16px;
+  height: 16px;
   line-height: 1;
   color: inherit;
   flex: 0 0 auto;

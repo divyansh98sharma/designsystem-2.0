@@ -67,11 +67,13 @@ const SOURCES: EcwIconSource[] = ['material', 'healthicons', 'custom'];
           <div class="ib-grid">
             @for (n of filtered(); track n) {
               <div class="ib-cell" [title]="n">
-                @defer (on viewport) {
-                  <ecw-icon [name]="n" [source]="source()" [size]="24" />
-                } @placeholder {
-                  <div class="ib-ph"></div>
-                }
+                <span class="ib-icon">
+                  @defer (on viewport) {
+                    <ecw-icon [name]="n" [source]="source()" />
+                  } @placeholder {
+                    <span class="ib-ph"></span>
+                  }
+                </span>
                 <code class="ib-name">{{ n }}</code>
               </div>
             }
@@ -81,7 +83,7 @@ const SOURCES: EcwIconSource[] = ['material', 'healthicons', 'custom'];
     </div>
   `,
   styles: [`
-    .ib-root { font-family: 'Inter', system-ui, sans-serif; color: #1a1a1a; }
+    .ib-root { font-family: 'Inter', system-ui, sans-serif; color: #1a1a1a; padding: 16px 24px 32px; }
     .ib-controls {
       position: sticky; top: 0; z-index: 1; background: #fff;
       display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
@@ -100,14 +102,19 @@ const SOURCES: EcwIconSource[] = ['material', 'healthicons', 'custom'];
     .ib-search:focus-visible { outline: 2px solid #007b95; outline-offset: 1px; border-color: #007b95; }
     .ib-status { font-size: 13px; color: #717171; margin: 0 0 16px; }
     .ib-empty { font-size: 14px; color: #4b4b4b; }
-    .ib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; }
+    .ib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 10px; }
     .ib-cell {
-      display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center;
-      padding: 12px 8px; border: 1px solid #f0f0f0; border-radius: 8px; color: #1a1a1a; min-height: 78px;
+      display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center;
+      padding: 16px 8px 12px; border: 1px solid #f0f0f0; border-radius: 10px; color: #1a1a1a;
+      box-sizing: border-box; overflow: hidden; transition: border-color 0.12s, background 0.12s;
     }
     .ib-cell:hover { border-color: #d7e5e3; background: #f7fbfa; }
-    .ib-ph { width: 24px; height: 24px; border-radius: 4px; background: #f0f0f0; }
-    .ib-name { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; color: #007b95; word-break: break-word; line-height: 1.3; }
+    .ib-icon { display: flex; align-items: center; justify-content: center; height: 24px; color: #1a1a1a; }
+    .ib-ph { display: block; width: 16px; height: 16px; border-radius: 4px; background: #f0f0f0; }
+    .ib-name {
+      width: 100%; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px;
+      color: #717171; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
   `],
 })
 class IconBrowserComponent {
@@ -191,13 +198,12 @@ export const Playground: PlaygroundStory = {
   render: (args) => ({
     props: args,
     moduleMetadata: { imports: [EcwIconComponent] },
-    template: `<ecw-icon [name]="name" [source]="source" [size]="size" [label]="label"></ecw-icon>`,
+    template: `<ecw-icon [name]="name" [source]="source" [label]="label"></ecw-icon>`,
   }),
-  args: { name: 'home', source: 'material', size: 48, label: '' },
+  args: { name: 'home', source: 'material', label: '' },
   argTypes: {
     name: { control: 'text', description: 'Material Symbols / Healthicons name, or a registered custom name' },
     source: { control: 'inline-radio', options: ['material', 'healthicons', 'custom'], description: 'Icon set to resolve from' },
-    size: { control: { type: 'number', min: 12, max: 96, step: 2 } },
     label: { control: 'text', description: 'Accessible label; omit for decorative icons' },
   },
   parameters: {

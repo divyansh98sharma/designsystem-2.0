@@ -18,7 +18,8 @@ export type { EcwIconSource } from './icon-registry';
  * Renders an inline **SVG** (no webfont/glyph) resolved by `name` from one of
  * three sources via `source`: Material Symbols (Outlined, weight 300),
  * Healthicons (outline), or a locally-registered custom SVG. All icons are the
- * outline variant.
+ * outline variant, rendered at a fixed **16×16px** (the single design-system
+ * icon size).
  *
  * SVGs are fetched live from the jsDelivr CDN and cached (see
  * {@link EcwIconLoader}), so new/updated icons are picked up automatically. For
@@ -41,8 +42,6 @@ export type { EcwIconSource } from './icon-registry';
   styleUrl: './icon.component.scss',
   host: {
     class: 'ecw-icon',
-    '[style.width.px]': 'size()',
-    '[style.height.px]': 'size()',
     '[attr.role]': 'label() ? "img" : null',
     '[attr.aria-label]': 'label() ?? null',
     '[attr.aria-hidden]': 'label() ? null : "true"',
@@ -56,9 +55,6 @@ export class EcwIconComponent {
 
   /** Which icon set to resolve `name` from. */
   readonly source = input<EcwIconSource>('material');
-
-  /** Rendered size in px (applied to both width and height). */
-  readonly size = input<number>(24);
 
   /**
    * Accessible label. When set, the icon is announced (`role="img"`); when
