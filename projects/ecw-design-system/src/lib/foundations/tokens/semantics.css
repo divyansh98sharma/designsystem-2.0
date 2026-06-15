@@ -46,6 +46,7 @@
   --ecw-background-interactive-control-disabled-default: var(--ecw-color-neutral-0);  /* #FFFFFF */
   --ecw-background-interactive-control-checked-default: var(--ecw-color-teal-700);  /* #007B95 */
   --ecw-background-interactive-control-checked-hover: var(--ecw-color-teal-900);  /* #02506F */
+  --ecw-background-interactive-control-checked-disabled: var(--ecw-color-neutral-400);  /* #BCBCBC */
   --ecw-background-interactive-control-indeterminate-default: var(--ecw-color-teal-700);  /* #007B95 */
   --ecw-background-interactive-control-indeterminate-hover: var(--ecw-color-teal-900);  /* #02506F */
   --ecw-background-surface-container-default: var(--ecw-color-neutral-0);  /* #FFFFFF */

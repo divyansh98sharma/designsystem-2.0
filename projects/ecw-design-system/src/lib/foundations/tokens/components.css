@@ -139,4 +139,39 @@
   --ecw-checkbox-control-max-width: var(--ecw-size-x-small);  /* 16 */
   --ecw-checkbox-control-min-height: var(--ecw-size-x-small);  /* 16 */
   --ecw-checkbox-control-max-height: var(--ecw-size-x-small);  /* 16 */
+
+  /* checkbox — control background (interior fill) */
+  --ecw-checkbox-control-background-unchecked-default: var(--ecw-background-interactive-control-unchecked-default);  /* #FFFFFF */
+  --ecw-checkbox-control-background-unchecked-hover: var(--ecw-background-interactive-control-unchecked-hover);  /* #FFFFFF */
+  --ecw-checkbox-control-background-unchecked-disabled: var(--ecw-background-interactive-control-disabled-default);  /* #FFFFFF */
+  --ecw-checkbox-control-background-checked-default: var(--ecw-background-interactive-control-checked-default);  /* #007B95 */
+  --ecw-checkbox-control-background-checked-hover: var(--ecw-background-interactive-control-checked-hover);  /* #02506F */
+  --ecw-checkbox-control-background-checked-disabled: var(--ecw-background-interactive-control-checked-disabled);  /* #BCBCBC */
+  /* NOTE: indeterminate uses the unfilled (white) interior — same treatment as unchecked; flagged in PR */
+  --ecw-checkbox-control-background-indeterminate-default: var(--ecw-background-interactive-control-unchecked-default);  /* #FFFFFF */
+  --ecw-checkbox-control-background-indeterminate-hover: var(--ecw-background-interactive-control-unchecked-hover);  /* #FFFFFF */
+
+  /* checkbox — control box (outline) */
+  --ecw-checkbox-control-box-unchecked-default: var(--ecw-indicator-interactive-control-unchecked-default);  /* #717171 */
+  --ecw-checkbox-control-box-unchecked-hover: var(--ecw-indicator-interactive-control-unchecked-hover);  /* #4B4B4B */
+  --ecw-checkbox-control-box-unchecked-disabled: var(--ecw-indicator-interactive-control-unchecked-disabled);  /* #BCBCBC */
+  --ecw-checkbox-control-box-checked-default: var(--ecw-indicator-interactive-control-checked-default);  /* #007B95 */
+  --ecw-checkbox-control-box-checked-hover: var(--ecw-indicator-interactive-control-checked-hover);  /* #02506F */
+  --ecw-checkbox-control-box-checked-disabled: var(--ecw-indicator-interactive-control-checked-disabled);  /* #BCBCBC */
+
+  /* checkbox — control mark (checkmark / indeterminate dash) */
+  --ecw-checkbox-control-mark-checked-default: var(--ecw-icon-interactive-control-checkmark-default);  /* #FFFFFF */
+  --ecw-checkbox-control-mark-checked-hover: var(--ecw-icon-interactive-control-checkmark-default);  /* #FFFFFF */
+  --ecw-checkbox-control-mark-checked-disabled: var(--ecw-icon-interactive-control-checkmark-default);  /* #FFFFFF */
+  --ecw-checkbox-control-mark-indeterminate-default: var(--ecw-indicator-interactive-control-indeterminate-default);  /* #007B95 */
+  --ecw-checkbox-control-mark-indeterminate-hover: var(--ecw-indicator-interactive-control-indeterminate-hover);  /* #02506F */
+
+  /* checkbox — label */
+  --ecw-checkbox-label-text-default: var(--ecw-text-interactive-control-default);  /* #000000 */
+  --ecw-checkbox-label-text-disabled: var(--ecw-text-interactive-control-disabled);  /* #969696 */
+  --ecw-checkbox-label-font-family: var(--ecw-typography-label-small-font-family);  /* Inter */
+  --ecw-checkbox-label-font-size: var(--ecw-typography-label-small-font-size);  /* 12 */
+  --ecw-checkbox-label-font-weight: var(--ecw-typography-label-small-font-weight);  /* Regular */
+  --ecw-checkbox-label-line-height: var(--ecw-typography-label-small-line-height);  /* 16 */
+  --ecw-checkbox-label-letter-spacing: var(--ecw-typography-label-small-letter-spacing);  /* 0 */
 }
