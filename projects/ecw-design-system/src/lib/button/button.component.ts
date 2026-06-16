@@ -70,9 +70,6 @@ export class EcwButtonComponent {
   /** Trailing icon (Material Symbols name or registered custom name). */
   readonly trailingIcon = input<string>();
 
-  /** Whether icons render filled (Material Symbols FILL axis). */
-  readonly iconFilled = input(false, { transform: booleanAttribute });
-
   /** Icon-only square button. Requires `ariaLabel`. */
   readonly iconOnly = input(false, { transform: booleanAttribute });
 
