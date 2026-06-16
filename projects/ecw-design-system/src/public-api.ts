@@ -7,3 +7,9 @@
  */
 
 export { DESIGN_SYSTEM_VERSION } from './lib/version';
+
+/* Icon system (PE-315893) */
+export { EcwIconComponent } from './lib/icon/icon.component';
+export { EcwIconRegistry } from './lib/icon/icon-registry';
+export type { EcwIconSource } from './lib/icon/icon-registry';
+export { EcwIconLoader } from './lib/icon/icon-loader';
