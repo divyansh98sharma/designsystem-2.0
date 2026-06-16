@@ -177,15 +177,6 @@ describe('EcwButtonComponent', () => {
       fixture.detectChanges();
       expect(icons().length).toBe(2);
     });
-
-    it('passes iconFilled through to the icon', () => {
-      fixture.componentRef.setInput('leadingIcon', 'star');
-      fixture.componentRef.setInput('iconFilled', true);
-      fixture.detectChanges();
-      // The filled axis is reflected by ecw-icon on its own host class.
-      expect(icons().length).toBe(1);
-      expect(fixture.nativeElement.querySelector('ecw-icon')).toBeTruthy();
-    });
   });
 
   describe('counter pill', () => {

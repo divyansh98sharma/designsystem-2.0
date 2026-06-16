@@ -18,7 +18,6 @@ const meta: Meta<EcwButtonComponent> = {
     disabled: { control: 'boolean' },
     leadingIcon: { control: 'text' },
     trailingIcon: { control: 'text' },
-    iconFilled: { control: 'boolean' },
     iconOnly: { control: 'boolean' },
     ariaLabel: { control: 'text' },
     counter: { control: 'text' },
@@ -54,7 +53,6 @@ export const Playground: Story = {
     disabled: false,
     leadingIcon: '',
     trailingIcon: '',
-    iconFilled: false,
     iconOnly: false,
     ariaLabel: '',
     counter: undefined,
@@ -74,7 +72,6 @@ export const Playground: Story = {
         [disabled]="disabled"
         [leadingIcon]="leadingIcon"
         [trailingIcon]="trailingIcon"
-        [iconFilled]="iconFilled"
         [iconOnly]="iconOnly"
         [ariaLabel]="ariaLabel"
         [counter]="counter"
