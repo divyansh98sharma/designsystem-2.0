@@ -63,27 +63,9 @@ The design system draws a deliberate line between what consumers may use directl
 |---|---|
 | **Foundation tokens** — a *curated* subset of color, plus the space, radius, typography and border scales | `@import '@ecw/design-system/foundations/foundations.css';` |
 | **Base element styles** — reset + native element defaults, built on the foundation tokens | `@import '@ecw/design-system/foundations/elements/base.css';` |
-| **Element primitives** — `EcwBoxComponent`, `EcwStackComponent`, `EcwTextComponent` | imported from the package TS entry point (`public-api.ts`) |
 | **Components** — `EcwButtonComponent`, `EcwIconComponent`, … | imported from the package TS entry point |
 
 `foundations.css` is the **public token contract** — a deliberately limited set. It exposes a small, hand-picked color palette (brand, surfaces, text, border, status) and the full space/radius/typography/border scales. The **full** primitive palette (every teal/neutral/error/warning step) is **not** public; it lives only in `tokens/primitives.css` for internal use.
-
-### Constrained primitive options
-
-The element primitives accept only **on-system** values — typed scale unions and named roles, never raw CSS:
-
-| Primitive | Input | Allowed options |
-|---|---|---|
-| `EcwBox` | `padding` / `paddingX` / `paddingY` | `2 \| 4 \| 8 \| 12 \| 16` (`EcwSpaceScale`) |
-| `EcwBox` | `radius` | `2 \| 4 \| 8 \| 999` (`EcwRadiusScale`) |
-| `EcwBox` | `background` | `surface \| subtle \| muted` (`EcwBoxSurface`) |
-| `EcwStack` | `gap` | `EcwSpaceScale` |
-| `EcwStack` | `align` / `justify` | `start \| center \| end \| stretch` / `… \| between` |
-| `EcwText` | `size` | `12 \| 14 \| 16` (`EcwTextSize`) |
-| `EcwText` | `weight` | `regular \| medium \| semi-bold \| bold` |
-| `EcwText` | `color` | `default \| muted \| brand \| error` (`EcwTextColor`) |
-
-Named color roles map to the curated public tokens internally, so consumers stay on-palette without referencing raw token names.
 
 ### Internal (do not depend on directly)
 

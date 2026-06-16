@@ -10,22 +10,6 @@
 
 export { DESIGN_SYSTEM_VERSION } from './lib/version';
 
-/* Element primitives — public building blocks (limited, on-system options) */
-export type { EcwSpaceScale, EcwRadiusScale } from './lib/scale';
-export { EcwBoxComponent } from './lib/box/box.component';
-export type { EcwBoxDisplay, EcwBoxSurface } from './lib/box/box.component';
-export { EcwStackComponent } from './lib/stack/stack.component';
-export type {
-  EcwStackAlign,
-  EcwStackJustify,
-} from './lib/stack/stack.component';
-export { EcwTextComponent } from './lib/text/text.component';
-export type {
-  EcwTextSize,
-  EcwTextWeight,
-  EcwTextColor,
-} from './lib/text/text.component';
-
 /* Icon system (PE-315893) */
 export { EcwIconComponent } from './lib/icon/icon.component';
 export { EcwIconRegistry } from './lib/icon/icon-registry';
