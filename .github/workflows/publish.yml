@@ -1,0 +1,44 @@
+# Required repo secrets:
+#   NPM_TOKEN            — npm automation token with publish rights for @ecw/design-system
+#   (set under Settings → Secrets and variables → Actions)
+#
+# Publishing is intentionally manual (workflow_dispatch) or tied to a GitHub Release.
+# Never auto-merge to main and immediately publish — always cut a GitHub Release to trigger.
+
+name: Publish
+
+on:
+  release:
+    types:
+      - published
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          registry-url: 'https://registry.npmjs.org'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build library
+        run: npm run build
+
+      - name: Publish to npm
+        run: npm publish --access restricted
+        working-directory: dist/ecw-design-system
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

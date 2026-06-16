@@ -1,0 +1,47 @@
+{
+  "name": "ecw-design-system-workspace",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "build": "ng build ecw-design-system",
+    "watch": "ng build ecw-design-system --watch --configuration development",
+    "test": "ng test",
+    "lint": "ng lint",
+    "storybook": "ng run ecw-design-system:storybook",
+    "build-storybook": "ng run ecw-design-system:build-storybook",
+    "chromatic": "chromatic --exit-zero-on-changes"
+  },
+  "private": true,
+  "packageManager": "npm@10.9.4",
+  "dependencies": {
+    "@angular/common": "^21.2.0",
+    "@angular/compiler": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.0",
+    "@angular/platform-browser": "^21.2.0",
+    "@angular/router": "^21.2.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/architect": "^0.2102.0",
+    "@angular-devkit/build-angular": "^21.2.0",
+    "@angular-devkit/core": "^21.2.0",
+    "@angular/build": "^21.2.15",
+    "@angular/cli": "^21.2.15",
+    "@angular/compiler-cli": "^21.2.0",
+    "@angular/platform-browser-dynamic": "^21.2.0",
+    "@compodoc/compodoc": "^1.2.1",
+    "@storybook/addon-a11y": "^10.4.4",
+    "@storybook/addon-docs": "^10.4.4",
+    "@storybook/addon-onboarding": "^10.4.4",
+    "@storybook/angular": "^10.4.4",
+    "chromatic": "^17.4.1",
+    "jsdom": "^28.0.0",
+    "ng-packagr": "^21.2.0",
+    "prettier": "^3.8.1",
+    "storybook": "^10.4.4",
+    "typescript": "~5.9.2",
+    "vitest": "^4.0.8"
+  }
+}

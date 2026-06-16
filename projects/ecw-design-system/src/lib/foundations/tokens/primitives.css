@@ -1,0 +1,72 @@
+/**
+ * =============================================================================
+ * Layer 1 — Primitive Tokens
+ * =============================================================================
+ *
+ * Primitive tokens are raw, context-free values — the palette of the design
+ * system. They are the ONLY layer that contains literal values (hex codes,
+ * numbers, raw strings). No other layer should ever contain a literal value.
+ *
+ * Naming convention:
+ *   --ecw-<category>-<scale>
+ *
+ * Examples by category:
+ *   Color   → --ecw-color-blue-500, --ecw-color-neutral-0
+ *   Space   → --ecw-space-1, --ecw-space-4, --ecw-space-8
+ *   Radius  → --ecw-radius-sm, --ecw-radius-md, --ecw-radius-full
+ *   Font    → --ecw-font-size-sm, --ecw-font-weight-bold, --ecw-line-height-base
+ *
+ * Populated by: PE-315920 (token architecture) / PE-315919 (colors)
+ * Values are supplied by the design team directly from Figma.
+ *
+ * MISSING-TOKEN POLICY:
+ *   If a required primitive token is absent, document it in the PR description.
+ *   If the gap is system-wide, recommend opening a new Jira.
+ *   Never hardcode raw values in semantic or component styles.
+ * =============================================================================
+ */
+
+:root {
+  /* Populated in PE-315920 / PE-315919 — values supplied by the design team
+     from Figma. Do not invent values. */
+
+  /* ---------------------------------------------------------------------------
+   * COMMENTED-OUT ILLUSTRATIVE EXAMPLES — naming pattern only, NOT live tokens
+   * ---------------------------------------------------------------------------
+   *
+   * Color scale (palette)
+   * --ecw-color-blue-50:    #...;
+   * --ecw-color-blue-100:   #...;
+   * --ecw-color-blue-500:   #...;
+   * --ecw-color-blue-900:   #...;
+   * --ecw-color-neutral-0:  #...;
+   * --ecw-color-neutral-50: #...;
+   * --ecw-color-neutral-900:#...;
+   * --ecw-color-red-500:    #...;
+   * --ecw-color-green-500:  #...;
+   *
+   * Spacing scale (e.g. 4-point grid)
+   * --ecw-space-1:  ...; /* 4px  * /
+   * --ecw-space-2:  ...; /* 8px  * /
+   * --ecw-space-3:  ...; /* 12px * /
+   * --ecw-space-4:  ...; /* 16px * /
+   * --ecw-space-6:  ...; /* 24px * /
+   * --ecw-space-8:  ...; /* 32px * /
+   *
+   * Border-radius scale
+   * --ecw-radius-none: ...;
+   * --ecw-radius-sm:   ...;
+   * --ecw-radius-md:   ...;
+   * --ecw-radius-lg:   ...;
+   * --ecw-radius-full: ...;
+   *
+   * Font-size scale
+   * --ecw-font-size-xs:  ...;
+   * --ecw-font-size-sm:  ...;
+   * --ecw-font-size-md:  ...;
+   * --ecw-font-size-lg:  ...;
+   * --ecw-font-size-xl:  ...;
+   * --ecw-font-size-2xl: ...;
+   * ---------------------------------------------------------------------------
+   */
+}

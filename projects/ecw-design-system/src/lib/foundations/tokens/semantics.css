@@ -1,0 +1,80 @@
+/**
+ * =============================================================================
+ * Layer 2 — Semantic Tokens
+ * =============================================================================
+ *
+ * Semantic tokens express DESIGN INTENT. They give meaning to primitives by
+ * describing HOW a value is used, not what it is. Consumers of the design
+ * system should prefer semantic tokens over primitive tokens in almost every
+ * situation.
+ *
+ * Rules:
+ *   - MUST reference primitive tokens via var(--ecw-...), never literal values.
+ *   - One level of indirection only — do NOT chain semantic → semantic unless
+ *     there is a strong conceptual reason (e.g. an alias token).
+ *
+ * Naming convention:
+ *   --ecw-color-<role>-<variant>
+ *   --ecw-<property>-<role>
+ *
+ * Examples:
+ *   --ecw-color-bg-default       → background of a surface
+ *   --ecw-color-bg-subtle        → slightly recessed surface
+ *   --ecw-color-text-default     → body text
+ *   --ecw-color-text-muted       → secondary/supporting text
+ *   --ecw-color-text-on-brand    → text placed on a brand-coloured surface
+ *   --ecw-color-border-default   → standard border
+ *   --ecw-color-border-focus     → keyboard-focus ring
+ *   --ecw-color-brand-primary    → primary brand accent
+ *   --ecw-color-feedback-error   → error / destructive state
+ *   --ecw-color-feedback-success → success / positive state
+ *   --ecw-radius-control         → radius for interactive controls
+ *   --ecw-radius-surface         → radius for cards / panels
+ *
+ * Populated by: PE-315920 (token architecture)
+ *
+ * MISSING-TOKEN POLICY:
+ *   If a required semantic token is absent, document it in the PR description.
+ *   If the gap is system-wide, recommend opening a new Jira.
+ *   Never hardcode raw values in component styles.
+ * =============================================================================
+ */
+
+:root {
+  /* TODO: Populate in PE-315920 — semantic mappings to be defined once
+     primitive tokens (PE-315919) are finalised by the design team. */
+
+  /* ---------------------------------------------------------------------------
+   * COMMENTED-OUT ILLUSTRATIVE EXAMPLES — naming pattern only, NOT live tokens
+   * ---------------------------------------------------------------------------
+   *
+   * Backgrounds
+   * --ecw-color-bg-default:        var(--ecw-color-neutral-0);
+   * --ecw-color-bg-subtle:         var(--ecw-color-neutral-50);
+   * --ecw-color-bg-inverse:        var(--ecw-color-neutral-900);
+   *
+   * Text
+   * --ecw-color-text-default:      var(--ecw-color-neutral-900);
+   * --ecw-color-text-muted:        var(--ecw-color-neutral-500);
+   * --ecw-color-text-on-brand:     var(--ecw-color-neutral-0);
+   * --ecw-color-text-disabled:     var(--ecw-color-neutral-300);
+   *
+   * Borders
+   * --ecw-color-border-default:    var(--ecw-color-neutral-200);
+   * --ecw-color-border-focus:      var(--ecw-color-blue-500);
+   * --ecw-color-border-error:      var(--ecw-color-red-500);
+   *
+   * Brand
+   * --ecw-color-brand-primary:     var(--ecw-color-blue-500);
+   * --ecw-color-brand-primary-hover: var(--ecw-color-blue-600);
+   *
+   * Feedback
+   * --ecw-color-feedback-error:    var(--ecw-color-red-500);
+   * --ecw-color-feedback-success:  var(--ecw-color-green-500);
+   *
+   * Radius — semantic roles
+   * --ecw-radius-control:          var(--ecw-radius-md);
+   * --ecw-radius-surface:          var(--ecw-radius-lg);
+   * ---------------------------------------------------------------------------
+   */
+}
