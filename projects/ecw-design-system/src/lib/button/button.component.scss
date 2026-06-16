@@ -1,0 +1,160 @@
+:host {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  vertical-align: middle;
+}
+
+// Per-variant aliases → the buttons consume generic --_* names.
+:host(.ecw-button--primary) {
+  --_bg: var(--ecw-button-container-background-primary-default);
+  --_bg-hover: var(--ecw-button-container-background-primary-hover);
+  --_bd: var(--ecw-button-container-border-primary-default);
+  --_bd-hover: var(--ecw-button-container-border-primary-hover);
+  --_fg: var(--ecw-button-label-text-primary-default);
+}
+:host(.ecw-button--secondary) {
+  --_bg: var(--ecw-button-container-background-secondary-default);
+  --_bg-hover: var(--ecw-button-container-background-secondary-hover);
+  --_bd: var(--ecw-button-container-border-secondary-default);
+  --_bd-hover: var(--ecw-button-container-border-secondary-hover);
+  --_fg: var(--ecw-button-label-text-secondary-default);
+}
+:host(.ecw-button--white) {
+  --_bg: var(--ecw-button-container-background-white-default);
+  --_bg-hover: var(--ecw-button-container-background-white-hover);
+  --_bd: var(--ecw-button-container-border-white-default);
+  --_bd-hover: var(--ecw-button-container-border-white-hover);
+  --_fg: var(--ecw-button-label-text-white-default);
+}
+:host(.ecw-button--error) {
+  --_bg: var(--ecw-button-container-background-error-default);
+  --_bg-hover: var(--ecw-button-container-background-error-hover);
+  --_bd: var(--ecw-button-container-border-error-default);
+  --_bd-hover: var(--ecw-button-container-border-error-hover);
+  --_fg: var(--ecw-button-label-text-error-default);
+}
+:host(.ecw-button--warning) {
+  --_bg: var(--ecw-button-container-background-warning-default);
+  --_bg-hover: var(--ecw-button-container-background-warning-hover);
+  --_bd: var(--ecw-button-container-border-warning-default);
+  --_bd-hover: var(--ecw-button-container-border-warning-hover);
+  --_fg: var(--ecw-button-label-text-warning-default);
+}
+
+.ecw-button__main,
+.ecw-button__split {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ecw-button-container-gap);
+  min-height: var(--ecw-button-container-min-height);
+  padding: var(--ecw-button-container-padding-y) var(--ecw-button-container-padding-x);
+  border: var(--ecw-button-container-stroke-width) solid var(--_bd);
+  background: var(--_bg);
+  color: var(--_fg);
+  font-family: var(--ecw-button-label-font-family);
+  font-size: var(--ecw-button-label-font-size);
+  font-weight: var(--ecw-button-label-font-weight);
+  line-height: var(--ecw-button-label-line-height);
+  letter-spacing: var(--ecw-button-label-letter-spacing);
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease;
+
+  &:hover:not(:disabled) {
+    background: var(--_bg-hover);
+    border-color: var(--_bd-hover);
+  }
+  &:active:not(:disabled) {
+    background: var(--_bg-hover);
+  }
+
+  // Accessibility addition: focus-visible ring (no focus token in Figma).
+  &:focus-visible {
+    outline: 2px solid var(--ecw-color-teal-700);
+    outline-offset: 1px;
+    position: relative;
+    z-index: 1;
+  }
+
+  &:disabled {
+    background: var(--ecw-button-container-background-disabled-default);
+    border-color: var(--ecw-button-container-border-disabled-default);
+    color: var(--ecw-button-label-text-disabled-default);
+    cursor: not-allowed;
+  }
+}
+
+.ecw-button__main {
+  border-radius: var(--ecw-button-container-radius);
+  flex: 1 1 auto;
+}
+:host(.ecw-button--icon-only) .ecw-button__main {
+  min-width: var(--ecw-button-container-min-width);
+  padding-left: var(--ecw-button-container-padding-x);
+  padding-right: var(--ecw-button-container-padding-x);
+}
+
+// Split: main loses right radius, split loses left radius + shares divider
+:host(.ecw-button--split) .ecw-button__main {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.ecw-button__split {
+  border-radius: var(--ecw-button-divider-container-radius);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left-width: 0;
+  background: var(--_bg);
+  border-color: var(--_bd);
+  min-width: var(--ecw-button-container-min-height);
+}
+
+.ecw-button__label {
+  white-space: nowrap;
+}
+
+// Visually hidden, but available to assistive tech (e.g. alert announcement).
+.ecw-button__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+// Counter pill
+.ecw-button__counter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  padding: 0 var(--ecw-button-counter-container-padding-x);
+  border-radius: var(--ecw-button-counter-container-radius);
+  border: var(--ecw-button-counter-container-stroke-width) solid
+    var(--ecw-button-counter-container-border-default);
+  background: var(--ecw-button-counter-container-background-default);
+  color: var(--ecw-button-counter-label-text-default);
+  font-family: var(--ecw-button-counter-label-font-family);
+  font-size: var(--ecw-button-counter-label-font-size);
+  font-weight: var(--ecw-button-counter-label-font-weight);
+  line-height: var(--ecw-button-counter-label-line-height);
+}
+
+// Alert indicator dot
+.ecw-button__alert {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--ecw-button-alert-indicator-container-radius);
+  background: var(--ecw-button-alert-indicator-container-background-default);
+  pointer-events: none;
+}

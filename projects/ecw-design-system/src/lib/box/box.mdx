@@ -1,0 +1,81 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as BoxStories from './box.component.stories';
+
+<Meta of={BoxStories} />
+
+# Box
+
+A generic layout primitive (`<ecw-box>`). It renders projected content inside a
+token-driven container with on-scale padding, radius and a named surface
+background. Every visual knob maps onto the design-system primitive tokens
+(`--ecw-space-*`, `--ecw-radius-*`) and a curated set of public color tokens —
+the options are deliberately **limited to the token scale**. There are no raw
+CSS values: you pick from the scale, not from arbitrary pixels or colours.
+
+---
+
+## Usage
+
+```ts
+import { EcwBoxComponent } from '@ecw/design-system';
+
+@Component({
+  imports: [EcwBoxComponent],
+  template: `
+    <ecw-box [padding]="8" [radius]="4" background="subtle">…</ecw-box>
+  `,
+})
+export class MyComponent {}
+```
+
+`padding` sets all sides; otherwise `paddingX` / `paddingY` compose a shorthand.
+Content is projected (`<ecw-box>…</ecw-box>`); the box has no outputs.
+
+---
+
+## Guidelines
+
+**Do**
+
+- Use the spacing scale for padding — `padding`, or `paddingX` / `paddingY` (2, 4, 8, 12, 16).
+- Use the radius scale for corners (2, 4, 8, 999).
+- Use the named surfaces (`surface`, `subtle`, `muted`) for backgrounds.
+- Choose a `display` mode that fits the layout (`block`, `inline-block`, `flex`, `inline-flex`).
+
+**Don't**
+
+- Don't pass off-scale padding or radius values — stay on the token scale.
+- Don't reach for raw colours; use the named surfaces, which map to public color tokens.
+- Don't use the box to smuggle in arbitrary inline CSS — it exposes only the on-system options by design.
+
+---
+
+## Padding
+
+The padding scale (all sides), 2 → 16.
+
+<Canvas of={BoxStories.Padding} />
+
+---
+
+## Axis padding
+
+Independent horizontal / vertical padding via `paddingX` / `paddingY`.
+
+<Canvas of={BoxStories.AxisPadding} />
+
+---
+
+## Radius
+
+The radius scale, 2 → 999 (pill).
+
+<Canvas of={BoxStories.Radius} />
+
+---
+
+## API
+
+<Controls of={BoxStories.Playground} />
+
+<ArgTypes of={BoxStories.Playground} />

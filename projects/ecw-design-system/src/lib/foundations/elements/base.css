@@ -1,0 +1,111 @@
+/**
+ * =============================================================================
+ * Public Base Element Styles — base.css
+ * =============================================================================
+ *
+ * Opt-in baseline styling for native HTML elements, built entirely on the
+ * public foundation tokens. Import after (or instead of) foundations.css —
+ * it pulls the tokens in itself:
+ *
+ *     @import '@ecw/design-system/foundations/elements/base.css';
+ *
+ * This file has SIDE EFFECTS: it styles the host document's elements
+ * (box-sizing, body typography, headings, links, code). Import it only at the
+ * application root, never from a component stylesheet.
+ * =============================================================================
+ */
+
+@import "../foundations.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--ecw-typography-font-family-inter), system-ui, sans-serif;
+  font-size: var(--ecw-typography-font-size-14);
+  font-weight: var(--ecw-typography-font-weight-regular);
+  line-height: var(--ecw-typography-line-height-20);
+  letter-spacing: var(--ecw-typography-letter-spacing-0);
+  color: var(--ecw-color-neutral-650);
+  background: var(--ecw-color-neutral-0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings — mapped onto the available type scale (12 / 14 / 16). */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 var(--ecw-space-8);
+  font-family: var(--ecw-typography-font-family-inter), system-ui, sans-serif;
+  font-weight: var(--ecw-typography-font-weight-semi-bold);
+  line-height: var(--ecw-typography-line-height-20);
+  color: var(--ecw-color-neutral-1000);
+}
+
+h1,
+h2 {
+  font-size: var(--ecw-typography-font-size-16);
+  font-weight: var(--ecw-typography-font-weight-bold);
+}
+
+h3,
+h4 {
+  font-size: var(--ecw-typography-font-size-14);
+}
+
+h5,
+h6 {
+  font-size: var(--ecw-typography-font-size-12);
+  line-height: var(--ecw-typography-line-height-16);
+}
+
+p {
+  margin: 0 0 var(--ecw-space-12);
+}
+
+a {
+  color: var(--ecw-color-teal-700);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--ecw-color-teal-700);
+  outline-offset: 1px;
+  border-radius: var(--ecw-radius-2);
+}
+
+small {
+  font-size: var(--ecw-typography-font-size-12);
+  line-height: var(--ecw-typography-line-height-16);
+}
+
+code,
+kbd,
+samp,
+pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--ecw-typography-font-size-12);
+}
+
+hr {
+  border: 0;
+  border-top: var(--ecw-stroke-full) solid var(--ecw-color-neutral-300);
+  margin: var(--ecw-space-16) 0;
+}

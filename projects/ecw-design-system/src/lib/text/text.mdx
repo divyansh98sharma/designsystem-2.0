@@ -1,0 +1,92 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as TextStories from './text.component.stories';
+
+<Meta of={TextStories} />
+
+# Text
+
+The design-system typography primitive (`<ecw-text>`). It renders projected text
+against a **limited type scale** (font-size `12 | 14 | 16`, with line-height
+derived from size) and a small set of **named color roles** (`default`, `muted`,
+`brand`, `error`) that map to curated public color tokens. Keeping the surface
+deliberately narrow means body copy stays in sync with the type scale instead of
+drifting into one-off font sizes and CSS colors.
+
+---
+
+## Usage
+
+```ts
+import { EcwTextComponent } from '@ecw/design-system';
+
+@Component({
+  imports: [EcwTextComponent],
+  template: `
+    <ecw-text [size]="16" weight="bold" color="brand">Account settings</ecw-text>
+  `,
+})
+export class MyComponent {}
+```
+
+The text is projected via content (`<ecw-text>…</ecw-text>`). `size` and `weight`
+have sensible defaults (14 / regular); `color` and `align` are opt-in and emit no
+inline style when left unset.
+
+---
+
+## Guidelines
+
+**Do**
+
+- Use the tokenized `size` scale (`12 | 14 | 16`) and the `weight` scale (`regular`, `medium`, `semi-bold`, `bold`).
+- Choose color by **role** — `default`, `muted`, `brand`, `error` — so text follows the theme.
+- Let line-height derive from `size`; the primitive keeps it consistent.
+- Use `truncate` for single-line labels in tight, fixed-width space.
+
+**Don't**
+
+- Don't pass a raw font size (e.g. `15px`, `1.1rem`) — pick the nearest token on the scale.
+- Don't pass a raw CSS color (`#333`, `rgb(...)`) — use a named color role instead.
+- Don't reach for `truncate` on multi-line body copy; it clips to a single line.
+
+---
+
+## Sizes
+
+The tokenized size scale. Line-height is derived from size (12 → 16px, 14 / 16 → 20px).
+
+<Canvas of={TextStories.Sizes} />
+
+---
+
+## Weights
+
+The four weight tokens, from `regular` (400) to `bold` (700).
+
+<Canvas of={TextStories.Weights} />
+
+---
+
+## Color & alignment
+
+Color and alignment are opt-in. Color resolves through the curated, themeable
+role tokens; alignment controls horizontal `text-align`.
+
+<Canvas of={TextStories.ColorAndAlign} />
+
+---
+
+## Truncate
+
+`truncate` clips to a single line with a trailing ellipsis — useful for labels in
+fixed-width containers.
+
+<Canvas of={TextStories.Truncate} />
+
+---
+
+## API
+
+<Controls of={TextStories.Playground} />
+
+<ArgTypes of={TextStories.Playground} />

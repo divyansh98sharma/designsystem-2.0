@@ -1,0 +1,68 @@
+/**
+ * =============================================================================
+ * Public Foundations — foundations.css
+ * =============================================================================
+ *
+ * The PUBLIC design-token surface of @ecw/design-system. Import this once at
+ * your application root to consume the foundation tokens directly:
+ *
+ *     @import '@ecw/design-system/foundations/foundations.css';
+ *
+ * This is a DELIBERATELY LIMITED, curated subset — not the full internal
+ * palette. It exposes only the tokens intended for public use:
+ *   - color        a small curated set (brand, surfaces, text, border, status)
+ *   - space        the full spacing scale
+ *   - radius       the full radius scale
+ *   - typography   font family, sizes, weights, line-heights, letter-spacing
+ *   - border       stroke width
+ *
+ * Token NAMES match the internal primitives, so values stay consistent with
+ * the library. The FULL palette (every teal/neutral/error/warning step) and
+ * the semantic + component token layers remain INTERNAL — they are an
+ * implementation detail of the components and are not part of this public
+ * contract. Consume those through components, not by referencing the variables.
+ * =============================================================================
+ */
+
+:root {
+  /* ---- color — curated public subset (literal values; see primitives) ---- */
+  --ecw-color-teal-700: #007B95;     /* brand */
+  --ecw-color-neutral-0: #FFFFFF;    /* surface */
+  --ecw-color-neutral-50: #F7F7F7;   /* surface, subtle */
+  --ecw-color-neutral-200: #EBEBEB;  /* surface, muted */
+  --ecw-color-neutral-300: #E1E1E1;  /* border */
+  --ecw-color-neutral-600: #717171;  /* text, muted */
+  --ecw-color-neutral-650: #4B4B4B;  /* text, default */
+  --ecw-color-neutral-1000: #000000; /* text, strong */
+  --ecw-color-error-700: #D82727;    /* status, error */
+  --ecw-color-warning-400: #FFD84B;  /* status, warning */
+
+  /* ---- space ---- */
+  --ecw-space-2: 2px;
+  --ecw-space-4: 4px;
+  --ecw-space-8: 8px;
+  --ecw-space-12: 12px;
+  --ecw-space-16: 16px;
+
+  /* ---- radius ---- */
+  --ecw-radius-2: 2px;
+  --ecw-radius-4: 4px;
+  --ecw-radius-8: 8px;
+  --ecw-radius-999: 999px;
+
+  /* ---- typography ---- */
+  --ecw-typography-font-family-inter: 'Inter';
+  --ecw-typography-font-size-12: 12px;
+  --ecw-typography-font-size-14: 14px;
+  --ecw-typography-font-size-16: 16px;
+  --ecw-typography-line-height-16: 16px;
+  --ecw-typography-line-height-20: 20px;
+  --ecw-typography-font-weight-regular: 400;
+  --ecw-typography-font-weight-medium: 500;
+  --ecw-typography-font-weight-semi-bold: 600;
+  --ecw-typography-font-weight-bold: 700;
+  --ecw-typography-letter-spacing-0: 0;
+
+  /* ---- border ---- */
+  --ecw-stroke-full: 1px;
+}
