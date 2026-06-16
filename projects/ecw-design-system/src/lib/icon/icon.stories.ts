@@ -190,7 +190,13 @@ export default meta;
 type BrowserStory = StoryObj<IconBrowserComponent>;
 
 /** Browse every icon in a source. Switch sources with the tabs; filter with search. */
-export const Overview: BrowserStory = {};
+export const Overview: BrowserStory = {
+  // This story fetches the FULL icon set live from the jsDelivr CDN and
+  // lazy-renders thousands of SVGs — non-deterministic and too heavy for a
+  // visual snapshot (Chromatic times out at 15s waiting on the CDN). Exclude
+  // it from snapshots; the single-icon Playground covers icon rendering.
+  parameters: { chromatic: { disable: true } },
+};
 
 // Interactive single-icon playground.
 type PlaygroundStory = StoryObj<EcwIconComponent>;
