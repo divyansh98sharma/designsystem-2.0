@@ -2,65 +2,176 @@
  * =============================================================================
  * Layer 3 — Component Tokens
  * =============================================================================
- *
- * Component tokens are component-specific design decisions. They provide a
- * dedicated override surface for each component without coupling component
- * styles directly to semantic or primitive tokens.
- *
- * Rules:
- *   - SHOULD reference semantic tokens via var(--ecw-...) where possible.
- *   - MAY fall back to primitive tokens only when no suitable semantic token
- *     exists (and a TODO comment must explain why).
- *   - MUST NOT contain literal values.
- *
- * Naming convention:
- *   --ecw-<component>-<property>[-<variant>]
- *
- * Examples:
- *   --ecw-button-bg-primary       → background of the primary button
- *   --ecw-button-text-primary     → text colour on the primary button
- *   --ecw-button-border-radius    → corner radius of all buttons
- *   --ecw-button-padding-x        → horizontal padding of buttons
- *   --ecw-input-border-default    → default border of text inputs
- *   --ecw-input-border-focus      → focus-state border of text inputs
- *
- * Lifecycle:
- *   Component tokens are ADDED alongside each component Jira. Do not add
- *   tokens here for components that have not yet been built.
- *
- * MISSING-TOKEN POLICY:
- *   If a required component token is absent, document it in the PR description.
- *   If the gap is system-wide, recommend opening a new Jira.
- *   Never hardcode raw values in component styles.
+ * Component-specific tokens. Each references a semantic via var(--ecw-...).
+ * Source of truth: Figma component collections (CODE-A-TON Library).
+ * Trailing comments show the resolved value for review only.
  * =============================================================================
  */
 
 :root {
-  /* TODO: Component tokens are added alongside each component Jira.
-     No components have been built yet — this block will be populated
-     incrementally as components land. */
+  /* button */
+  --ecw-button-container-padding-x: var(--ecw-padding-x-small);  /* 4 */
+  --ecw-button-container-padding-y: var(--ecw-padding-x-small);  /* 4 */
+  --ecw-button-container-gap: var(--ecw-space-x-small);  /* 4 */
+  --ecw-button-container-radius: var(--ecw-radius-medium);  /* 4 */
+  --ecw-button-container-stroke-width: var(--ecw-stroke-width-1);  /* 1 */
+  --ecw-button-container-min-height: var(--ecw-size-small);  /* 24 */
+  --ecw-button-container-max-height: var(--ecw-size-small);  /* 24 */
+  --ecw-button-container-min-width: var(--ecw-size-small);  /* 24 */
+  --ecw-button-container-background-primary-default: var(--ecw-background-interactive-container-primary-default);  /* #E9F5F3 */
+  --ecw-button-container-background-primary-hover: var(--ecw-background-interactive-container-primary-hover);  /* #D7E5E3 */
+  --ecw-button-container-background-secondary-default: var(--ecw-background-interactive-container-secondary-default);  /* #EBEBEB */
+  --ecw-button-container-background-secondary-hover: var(--ecw-background-interactive-container-secondary-hover);  /* #E6E6E6 */
+  --ecw-button-container-background-white-default: var(--ecw-background-interactive-container-white-default);  /* #FBFBFB */
+  --ecw-button-container-background-white-hover: var(--ecw-background-interactive-container-white-hover);  /* #FBFBFB */
+  --ecw-button-container-background-error-default: var(--ecw-background-interactive-container-error-default);  /* #D82727 */
+  --ecw-button-container-background-error-hover: var(--ecw-background-interactive-container-error-hover);  /* #D82727 */
+  --ecw-button-container-background-warning-default: var(--ecw-background-interactive-container-warning-default);  /* #FCDE71 */
+  --ecw-button-container-background-warning-hover: var(--ecw-background-interactive-container-warning-hover);  /* #FFD84B */
+  --ecw-button-container-background-disabled-default: var(--ecw-background-interactive-container-disabled-default);  /* #F7F7F7 */
+  --ecw-button-container-border-primary-default: var(--ecw-border-interactive-container-primary-default);  /* #53CBBD */
+  --ecw-button-container-border-primary-hover: var(--ecw-border-interactive-container-primary-hover);  /* #53CBBD */
+  --ecw-button-container-border-secondary-default: var(--ecw-border-interactive-container-secondary-default);  /* #E1E1E1 */
+  --ecw-button-container-border-secondary-hover: var(--ecw-border-interactive-container-secondary-hover);  /* #BCBCBC */
+  --ecw-button-container-border-white-default: var(--ecw-border-interactive-container-white-default);  /* #EBEBEB */
+  --ecw-button-container-border-white-hover: var(--ecw-border-interactive-container-white-hover);  /* #EBEBEB */
+  --ecw-button-container-border-error-default: var(--ecw-border-interactive-container-error-default);  /* #B42121 */
+  --ecw-button-container-border-error-hover: var(--ecw-border-interactive-container-error-hover);  /* #350101 */
+  --ecw-button-container-border-warning-default: var(--ecw-border-interactive-container-warning-default);  /* #A7891C */
+  --ecw-button-container-border-warning-hover: var(--ecw-border-interactive-container-warning-hover);  /* #A7891C */
+  --ecw-button-container-border-disabled-default: var(--ecw-border-interactive-container-disabled-default);  /* #EBEBEB */
+  --ecw-button-label-font-family: var(--ecw-typography-label-small-font-family);  /* Inter */
+  --ecw-button-label-font-size: var(--ecw-typography-label-small-font-size);  /* 12 */
+  --ecw-button-label-font-weight: var(--ecw-typography-label-small-font-weight);  /* Regular */
+  --ecw-button-label-line-height: var(--ecw-typography-label-small-line-height);  /* 16 */
+  --ecw-button-label-letter-spacing: var(--ecw-typography-label-small-letter-spacing);  /* 0 */
+  --ecw-button-label-text-primary-default: var(--ecw-text-interactive-primary-default);  /* #000000 */
+  --ecw-button-label-text-primary-hover: var(--ecw-text-interactive-primary-default);  /* #000000 */
+  --ecw-button-label-text-secondary-default: var(--ecw-text-interactive-secondary-default);  /* #000000 */
+  --ecw-button-label-text-secondary-hover: var(--ecw-text-interactive-secondary-default);  /* #000000 */
+  --ecw-button-label-text-white-default: var(--ecw-text-interactive-white-default);  /* #000000 */
+  --ecw-button-label-text-white-hover: var(--ecw-text-interactive-white-default);  /* #000000 */
+  --ecw-button-label-text-error-default: var(--ecw-text-interactive-error-default);  /* #FFFFFF */
+  --ecw-button-label-text-error-hover: var(--ecw-text-interactive-error-default);  /* #FFFFFF */
+  --ecw-button-label-text-warning-default: var(--ecw-text-interactive-warning-default);  /* #000000 */
+  --ecw-button-label-text-warning-hover: var(--ecw-text-interactive-warning-default);  /* #000000 */
+  --ecw-button-label-text-disabled-default: var(--ecw-text-interactive-disabled-default);  /* #717171 */
+  --ecw-button-icon-color-primary-default: var(--ecw-icon-interactive-primary-default);  /* #000000 */
+  --ecw-button-icon-color-primary-hover: var(--ecw-icon-interactive-primary-default);  /* #000000 */
+  --ecw-button-icon-color-secondary-default: var(--ecw-icon-interactive-secondary-default);  /* #000000 */
+  --ecw-button-icon-color-secondary-hover: var(--ecw-icon-interactive-secondary-default);  /* #000000 */
+  --ecw-button-icon-color-white-default: var(--ecw-icon-interactive-white-default);  /* #000000 */
+  --ecw-button-icon-color-white-hover: var(--ecw-icon-interactive-white-default);  /* #000000 */
+  --ecw-button-icon-color-error-default: var(--ecw-icon-interactive-error-default);  /* #FFFFFF */
+  --ecw-button-icon-color-error-hover: var(--ecw-icon-interactive-error-default);  /* #FFFFFF */
+  --ecw-button-icon-color-warning-default: var(--ecw-icon-interactive-warning-default);  /* #000000 */
+  --ecw-button-icon-color-warning-hover: var(--ecw-icon-interactive-warning-default);  /* #000000 */
+  --ecw-button-icon-color-disabled-default: var(--ecw-icon-interactive-disabled-default);  /* #717171 */
+  --ecw-button-divider-container-padding-x: var(--ecw-padding-x-small);  /* 4 */
+  --ecw-button-divider-container-padding-y: var(--ecw-padding-x-small);  /* 4 */
+  --ecw-button-divider-container-radius: var(--ecw-radius-medium);  /* 4 */
+  --ecw-button-divider-container-stroke-width: var(--ecw-stroke-width-1);  /* 1 */
+  --ecw-button-divider-container-background-primary-default: var(--ecw-background-interactive-container-primary-default);  /* #E9F5F3 */
+  --ecw-button-divider-container-background-primary-hover: var(--ecw-background-interactive-container-primary-hover);  /* #D7E5E3 */
+  --ecw-button-divider-container-background-secondary-default: var(--ecw-background-interactive-container-secondary-default);  /* #EBEBEB */
+  --ecw-button-divider-container-background-secondary-hover: var(--ecw-background-interactive-container-secondary-hover);  /* #E6E6E6 */
+  --ecw-button-divider-container-background-white-default: var(--ecw-background-interactive-container-white-default);  /* #FBFBFB */
+  --ecw-button-divider-container-background-white-hover: var(--ecw-background-interactive-container-white-hover);  /* #FBFBFB */
+  --ecw-button-divider-container-background-error-default: var(--ecw-background-interactive-container-error-default);  /* #D82727 */
+  --ecw-button-divider-container-background-error-hover: var(--ecw-background-interactive-container-error-hover);  /* #D82727 */
+  --ecw-button-divider-container-background-warning-default: var(--ecw-background-interactive-container-warning-default);  /* #FCDE71 */
+  --ecw-button-divider-container-background-warning-hover: var(--ecw-background-interactive-container-warning-hover);  /* #FFD84B */
+  --ecw-button-divider-container-background-disabled-default: var(--ecw-background-interactive-container-disabled-default);  /* #F7F7F7 */
+  --ecw-button-divider-container-border-primary-default: var(--ecw-border-interactive-container-primary-default);  /* #53CBBD */
+  --ecw-button-divider-container-border-primary-hover: var(--ecw-border-interactive-container-primary-hover);  /* #53CBBD */
+  --ecw-button-divider-container-border-secondary-default: var(--ecw-border-interactive-container-secondary-default);  /* #E1E1E1 */
+  --ecw-button-divider-container-border-secondary-hover: var(--ecw-border-interactive-container-secondary-hover);  /* #BCBCBC */
+  --ecw-button-divider-container-border-white-default: var(--ecw-border-interactive-container-white-default);  /* #EBEBEB */
+  --ecw-button-divider-container-border-white-hover: var(--ecw-border-interactive-container-white-hover);  /* #EBEBEB */
+  --ecw-button-divider-container-border-error-default: var(--ecw-border-interactive-container-error-default);  /* #B42121 */
+  --ecw-button-divider-container-border-error-hover: var(--ecw-border-interactive-container-error-hover);  /* #350101 */
+  --ecw-button-divider-container-border-warning-default: var(--ecw-border-interactive-container-warning-default);  /* #A7891C */
+  --ecw-button-divider-container-border-warning-hover: var(--ecw-border-interactive-container-warning-hover);  /* #A7891C */
+  --ecw-button-divider-container-border-disabled-default: var(--ecw-border-interactive-container-disabled-default);  /* #EBEBEB */
+  --ecw-button-divider-icon-color-primary-default: var(--ecw-icon-interactive-primary-default);  /* #000000 */
+  --ecw-button-divider-icon-color-primary-hover: var(--ecw-icon-interactive-primary-default);  /* #000000 */
+  --ecw-button-divider-icon-color-secondary-default: var(--ecw-icon-interactive-secondary-default);  /* #000000 */
+  --ecw-button-divider-icon-color-secondary-hover: var(--ecw-icon-interactive-secondary-default);  /* #000000 */
+  --ecw-button-divider-icon-color-white-default: var(--ecw-icon-interactive-white-default);  /* #000000 */
+  --ecw-button-divider-icon-color-white-hover: var(--ecw-icon-interactive-white-default);  /* #000000 */
+  --ecw-button-divider-icon-color-error-default: var(--ecw-icon-interactive-error-default);  /* #FFFFFF */
+  --ecw-button-divider-icon-color-error-hover: var(--ecw-icon-interactive-error-default);  /* #FFFFFF */
+  --ecw-button-divider-icon-color-warning-default: var(--ecw-icon-interactive-warning-default);  /* #000000 */
+  --ecw-button-divider-icon-color-warning-hover: var(--ecw-icon-interactive-warning-default);  /* #000000 */
+  --ecw-button-divider-icon-color-disabled-default: var(--ecw-icon-interactive-disabled-default);  /* #717171 */
+  --ecw-button-counter-container-padding-x: var(--ecw-padding-x-small);  /* 4 */
+  --ecw-button-counter-container-radius: var(--ecw-radius-full);  /* 999 */
+  --ecw-button-counter-container-stroke-width: var(--ecw-stroke-width-1);  /* 1 */
+  --ecw-button-counter-container-background-default: var(--ecw-background-surface-container-default);  /* #FFFFFF */
+  --ecw-button-counter-container-border-default: var(--ecw-border-interactive-container-white-default);  /* #EBEBEB */
+  --ecw-button-counter-label-font-family: var(--ecw-typography-label-small-font-family);  /* Inter */
+  --ecw-button-counter-label-font-size: var(--ecw-typography-label-small-font-size);  /* 12 */
+  --ecw-button-counter-label-font-weight: var(--ecw-typography-label-small-font-weight);  /* Regular */
+  --ecw-button-counter-label-line-height: var(--ecw-typography-label-small-line-height);  /* 16 */
+  --ecw-button-counter-label-letter-spacing: var(--ecw-typography-label-small-letter-spacing);  /* 0 */
+  --ecw-button-counter-label-text-default: var(--ecw-text-content-default);  /* #000000 */
+  --ecw-button-alert-indicator-container-radius: var(--ecw-radius-large);  /* 8 */
+  --ecw-button-alert-indicator-container-background-default: var(--ecw-background-interactive-container-error-default);  /* #D82727 */
 
-  /* ---------------------------------------------------------------------------
-   * COMMENTED-OUT ILLUSTRATIVE EXAMPLES — naming pattern only, NOT live tokens
-   * ---------------------------------------------------------------------------
-   *
-   * Button
-   * --ecw-button-bg-primary:          var(--ecw-color-brand-primary);
-   * --ecw-button-bg-primary-hover:    var(--ecw-color-brand-primary-hover);
-   * --ecw-button-bg-primary-disabled: var(--ecw-color-bg-subtle);
-   * --ecw-button-text-primary:        var(--ecw-color-text-on-brand);
-   * --ecw-button-text-disabled:       var(--ecw-color-text-disabled);
-   * --ecw-button-border-radius:       var(--ecw-radius-control);
-   * --ecw-button-padding-x:           var(--ecw-space-4);
-   * --ecw-button-padding-y:           var(--ecw-space-2);
-   *
-   * Input (illustrative — implemented with its own Jira)
-   * --ecw-input-bg:                   var(--ecw-color-bg-default);
-   * --ecw-input-border-default:       var(--ecw-color-border-default);
-   * --ecw-input-border-focus:         var(--ecw-color-border-focus);
-   * --ecw-input-border-error:         var(--ecw-color-border-error);
-   * --ecw-input-text:                 var(--ecw-color-text-default);
-   * --ecw-input-border-radius:        var(--ecw-radius-control);
-   * ---------------------------------------------------------------------------
-   */
+  /* sogi */
+  --ecw-sogi-container-min-height: var(--ecw-size-small);  /* 24 */
+  --ecw-sogi-container-max-height: var(--ecw-size-small);  /* 24 */
+  --ecw-sogi-container-min-width: 45px;  /* NOTE: raw value — not aliased in Figma; flagged in PR */
+  --ecw-sogi-container-max-width: 45px;  /* NOTE: raw value — not aliased in Figma; flagged in PR */
+  --ecw-sogi-container-radius: var(--ecw-radius-full);  /* 999 */
+  --ecw-sogi-container-padding-x: var(--ecw-padding-small);  /* 8 */
+  --ecw-sogi-container-padding-y: var(--ecw-padding-x-small);  /* 4 */
+  --ecw-sogi-label-font-family: var(--ecw-typography-label-small-font-family);  /* Inter */
+  --ecw-sogi-label-font-size: var(--ecw-typography-label-small-font-size);  /* 12 */
+  --ecw-sogi-label-font-weight: var(--ecw-typography-label-small-font-weight);  /* Regular */
+  --ecw-sogi-label-line-height: var(--ecw-typography-label-small-line-height);  /* 16 */
+  --ecw-sogi-label-letter-spacing: var(--ecw-typography-label-small-letter-spacing);  /* 0 */
+  --ecw-sogi-label-text-default: var(--ecw-text-content-inverse-default);  /* #FFFFFF */
+
+  /* checkbox */
+  --ecw-checkbox-container-gap: var(--ecw-space-x-small);  /* 4 */
+  --ecw-checkbox-control-min-width: var(--ecw-size-x-small);  /* 16 */
+  --ecw-checkbox-control-max-width: var(--ecw-size-x-small);  /* 16 */
+  --ecw-checkbox-control-min-height: var(--ecw-size-x-small);  /* 16 */
+  --ecw-checkbox-control-max-height: var(--ecw-size-x-small);  /* 16 */
+
+  /* checkbox — control background (interior fill) */
+  --ecw-checkbox-control-background-unchecked-default: var(--ecw-background-interactive-control-unchecked-default);  /* #FFFFFF */
+  --ecw-checkbox-control-background-unchecked-hover: var(--ecw-background-interactive-control-unchecked-hover);  /* #FFFFFF */
+  --ecw-checkbox-control-background-unchecked-disabled: var(--ecw-background-interactive-control-disabled-default);  /* #FFFFFF */
+  --ecw-checkbox-control-background-checked-default: var(--ecw-background-interactive-control-checked-default);  /* #007B95 */
+  --ecw-checkbox-control-background-checked-hover: var(--ecw-background-interactive-control-checked-hover);  /* #02506F */
+  --ecw-checkbox-control-background-checked-disabled: var(--ecw-background-interactive-control-checked-disabled);  /* #BCBCBC */
+  /* NOTE: indeterminate uses the unfilled (white) interior — same treatment as unchecked; flagged in PR */
+  --ecw-checkbox-control-background-indeterminate-default: var(--ecw-background-interactive-control-unchecked-default);  /* #FFFFFF */
+  --ecw-checkbox-control-background-indeterminate-hover: var(--ecw-background-interactive-control-unchecked-hover);  /* #FFFFFF */
+
+  /* checkbox — control box (outline) */
+  --ecw-checkbox-control-box-unchecked-default: var(--ecw-indicator-interactive-control-unchecked-default);  /* #717171 */
+  --ecw-checkbox-control-box-unchecked-hover: var(--ecw-indicator-interactive-control-unchecked-hover);  /* #4B4B4B */
+  --ecw-checkbox-control-box-unchecked-disabled: var(--ecw-indicator-interactive-control-unchecked-disabled);  /* #BCBCBC */
+  --ecw-checkbox-control-box-checked-default: var(--ecw-indicator-interactive-control-checked-default);  /* #007B95 */
+  --ecw-checkbox-control-box-checked-hover: var(--ecw-indicator-interactive-control-checked-hover);  /* #02506F */
+  --ecw-checkbox-control-box-checked-disabled: var(--ecw-indicator-interactive-control-checked-disabled);  /* #BCBCBC */
+
+  /* checkbox — control mark (checkmark / indeterminate dash) */
+  --ecw-checkbox-control-mark-checked-default: var(--ecw-icon-interactive-control-checkmark-default);  /* #FFFFFF */
+  --ecw-checkbox-control-mark-checked-hover: var(--ecw-icon-interactive-control-checkmark-default);  /* #FFFFFF */
+  --ecw-checkbox-control-mark-checked-disabled: var(--ecw-icon-interactive-control-checkmark-default);  /* #FFFFFF */
+  --ecw-checkbox-control-mark-indeterminate-default: var(--ecw-indicator-interactive-control-indeterminate-default);  /* #007B95 */
+  --ecw-checkbox-control-mark-indeterminate-hover: var(--ecw-indicator-interactive-control-indeterminate-hover);  /* #02506F */
+
+  /* checkbox — label */
+  --ecw-checkbox-label-text-default: var(--ecw-text-interactive-control-default);  /* #000000 */
+  --ecw-checkbox-label-text-disabled: var(--ecw-text-interactive-control-disabled);  /* #969696 */
+  --ecw-checkbox-label-font-family: var(--ecw-typography-label-small-font-family);  /* Inter */
+  --ecw-checkbox-label-font-size: var(--ecw-typography-label-small-font-size);  /* 12 */
+  --ecw-checkbox-label-font-weight: var(--ecw-typography-label-small-font-weight);  /* Regular */
+  --ecw-checkbox-label-line-height: var(--ecw-typography-label-small-line-height);  /* 16 */
+  --ecw-checkbox-label-letter-spacing: var(--ecw-typography-label-small-letter-spacing);  /* 0 */
 }

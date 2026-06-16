@@ -7,11 +7,10 @@ import type { Meta, StoryObj } from '@storybook/angular';
 // production API. It exists solely to render the token architecture diagram
 // in Storybook and produce a Chromatic snapshot for the CI smoke test.
 //
-// Styles below are documentation chrome — they do not use production tokens
-// because primitive/semantic values are not yet populated (PE-315920 /
-// PE-315919). Once the token system is live these illustrative hard-coded
-// values would be replaced with the real --ecw-* custom properties in the
-// actual product components.
+// Styles below are documentation chrome only — they are intentionally NOT
+// product tokens. As of PE-315920 the real --ecw-* layers are populated from
+// the Figma local variables (primitives, semantics, and initial component
+// tokens) and are loaded globally via the Storybook `styles` build option.
 // ---------------------------------------------------------------------------
 
 interface TokenLayer {
@@ -275,13 +274,13 @@ export class TokenArchitectureDocComponent {
         'The only layer that contains literal values (hex codes, numbers, raw strings).',
       rule: 'May contain literal values. No references to other tokens.',
       examples: [
-        '--ecw-color-blue-500',
+        '--ecw-color-teal-500',
         '--ecw-color-neutral-0',
         '--ecw-space-4',
-        '--ecw-radius-md',
-        '--ecw-font-size-sm',
+        '--ecw-radius-4',
+        '--ecw-typography-font-size-12',
       ],
-      status: 'Values populated in PE-315920 / PE-315919 — supplied by the design team from Figma.',
+      status: 'Populated from the Figma "Primitives" collection (PE-315920) — 48 tokens: color, space, radius, stroke, size, typography.',
     },
     {
       label: 'Semantics',
@@ -291,13 +290,13 @@ export class TokenArchitectureDocComponent {
         'is used, not what it is. Consumers should prefer semantic tokens over primitive tokens.',
       rule: 'Must reference primitives via var(--ecw-…). Never use literal values.',
       examples: [
-        '--ecw-color-bg-default',
-        '--ecw-color-text-muted',
-        '--ecw-color-brand-primary',
-        '--ecw-color-border-focus',
-        '--ecw-color-feedback-error',
+        '--ecw-background-interactive-container-primary-default',
+        '--ecw-text-interactive-primary-default',
+        '--ecw-border-interactive-container-error-default',
+        '--ecw-padding-small',
+        '--ecw-radius-medium',
       ],
-      status: 'Mappings defined in PE-315920 once primitive tokens are finalised.',
+      status: 'Populated from the Figma "Semantics" collection (PE-315920) — 84 tokens referencing primitives via var(). Color/border coverage expands in PE-315919.',
     },
     {
       label: 'Components',
@@ -307,13 +306,13 @@ export class TokenArchitectureDocComponent {
         'for each component without coupling component styles directly to semantic or primitive tokens.',
       rule: 'Should reference semantic tokens. Must not contain literal values.',
       examples: [
-        '--ecw-button-bg-primary',
-        '--ecw-button-text-primary',
-        '--ecw-button-border-radius',
-        '--ecw-input-border-default',
-        '--ecw-input-border-focus',
+        '--ecw-button-container-background-primary-default',
+        '--ecw-button-label-text-primary-default',
+        '--ecw-button-container-radius',
+        '--ecw-checkbox-container-gap',
+        '--ecw-sogi-container-radius',
       ],
-      status: 'Tokens added alongside each component Jira. No components exist yet.',
+      status: 'Populated from the Figma component collections (PE-315920): button, checkbox, sogi. More added alongside each component Jira.',
     },
   ];
 }
@@ -333,7 +332,9 @@ const meta: Meta<TokenArchitectureDocComponent> = {
           'Documents the three-layer `--ecw-*` CSS custom-property architecture: ' +
           '**Primitives** (raw palette values) → **Semantics** (design-intent mappings) → ' +
           '**Components** (component-scoped overrides). ' +
-          'Token values are populated by the design team from Figma (PE-315920 / PE-315919). ' +
+          'Token values are sourced from the Figma local variables. As of PE-315920 the ' +
+          'primitives (48), semantics (84), and initial component tokens (button, checkbox, sogi) ' +
+          'are populated and loaded globally in Storybook. ' +
           'This story also acts as the Storybook + Chromatic smoke test for the Angular render pipeline.',
       },
     },
