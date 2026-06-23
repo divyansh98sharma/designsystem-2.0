@@ -152,3 +152,31 @@ export const Split: Story = {
     `,
   }),
 };
+
+/**
+ * Dark mode. Opt in by setting `data-theme="dark"` on any ancestor — the button
+ * tokens flip via the cascade (no component API change). `white` and `warning`
+ * are unchanged by design (already high-contrast on dark surfaces).
+ */
+export const DarkMode: Story = {
+  parameters: { backgrounds: { default: 'dark' } },
+  render: () => ({
+    template: `
+      <div data-theme="dark" style="display:flex; flex-direction:column; gap:16px; padding:24px; background:#0b1220; border-radius:8px;">
+        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+          <ecw-button variant="primary">Primary</ecw-button>
+          <ecw-button variant="secondary">Secondary</ecw-button>
+          <ecw-button variant="white">White</ecw-button>
+          <ecw-button variant="error">Error</ecw-button>
+          <ecw-button variant="warning">Warning</ecw-button>
+          <ecw-button variant="primary" disabled>Disabled</ecw-button>
+        </div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+          <ecw-button variant="primary" leadingIcon="add">Add</ecw-button>
+          <ecw-button variant="secondary" leadingIcon="filter_list" [counter]="3">Filters</ecw-button>
+          <ecw-button variant="primary" split>Save</ecw-button>
+        </div>
+      </div>
+    `,
+  }),
+};
