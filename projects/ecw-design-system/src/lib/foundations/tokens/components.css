@@ -175,3 +175,62 @@
   --ecw-checkbox-label-line-height: var(--ecw-typography-label-small-line-height);  /* 16 */
   --ecw-checkbox-label-letter-spacing: var(--ecw-typography-label-small-letter-spacing);  /* 0 */
 }
+
+/**
+ * =============================================================================
+ * Dark mode — button (Figma "Dark?=Yes" variants)
+ * =============================================================================
+ * Opt-in: place `data-theme="dark"` on any ancestor (e.g. <html> or a section)
+ * and every `<ecw-button>` inside picks up the dark surfaces via the cascade.
+ * Component tokens are overridden with literal values because the dark palette
+ * (slate / teal-900 family) is not part of the existing primitive scale.
+ *
+ * Only tokens that differ in dark mode are listed. `white` and `warning` are
+ * already high-contrast on dark surfaces, so they inherit the light values
+ * unchanged. Icons follow `currentColor` (= the label-text token), so the
+ * icon-color tokens are kept in sync for consistency even though the button
+ * SCSS reads colour from the label token.
+ * =============================================================================
+ */
+[data-theme="dark"] {
+  /* button — primary */
+  --ecw-button-container-background-primary-default: #134e4a;
+  --ecw-button-container-background-primary-hover: #0f3a37;
+  --ecw-button-label-text-primary-default: #ffffff;
+  --ecw-button-label-text-primary-hover: #ffffff;
+  --ecw-button-icon-color-primary-default: #ffffff;
+  --ecw-button-icon-color-primary-hover: #ffffff;
+  --ecw-button-divider-container-background-primary-default: #134e4a;
+  --ecw-button-divider-container-background-primary-hover: #0f3a37;
+  --ecw-button-divider-icon-color-primary-default: #ffffff;
+  --ecw-button-divider-icon-color-primary-hover: #ffffff;
+
+  /* button — secondary */
+  --ecw-button-container-background-secondary-default: #334155;
+  --ecw-button-container-background-secondary-hover: #334155;
+  --ecw-button-container-border-secondary-default: #374151;
+  --ecw-button-container-border-secondary-hover: #4b5563;
+  --ecw-button-label-text-secondary-default: #ffffff;
+  --ecw-button-label-text-secondary-hover: #ffffff;
+  --ecw-button-icon-color-secondary-default: #ffffff;
+  --ecw-button-icon-color-secondary-hover: #ffffff;
+  --ecw-button-divider-container-background-secondary-default: #334155;
+  --ecw-button-divider-container-background-secondary-hover: #334155;
+  --ecw-button-divider-container-border-secondary-default: #374151;
+  --ecw-button-divider-container-border-secondary-hover: #4b5563;
+  --ecw-button-divider-icon-color-secondary-default: #ffffff;
+  --ecw-button-divider-icon-color-secondary-hover: #ffffff;
+
+  /* button — error (only the hover border darkens) */
+  --ecw-button-container-border-error-hover: #b91c1c;
+  --ecw-button-divider-container-border-error-hover: #b91c1c;
+
+  /* button — disabled */
+  --ecw-button-container-background-disabled-default: #1f2937;
+  --ecw-button-container-border-disabled-default: #4b5563;
+  --ecw-button-label-text-disabled-default: #6b7280;
+  --ecw-button-icon-color-disabled-default: #6b7280;
+  --ecw-button-divider-container-background-disabled-default: #1f2937;
+  --ecw-button-divider-container-border-disabled-default: #4b5563;
+  --ecw-button-divider-icon-color-disabled-default: #6b7280;
+}
