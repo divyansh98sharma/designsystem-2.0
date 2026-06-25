@@ -19,3 +19,7 @@ export { EcwIconLoader } from './lib/icon/icon-loader';
 /* Button (PE-256839) */
 export { EcwButtonComponent } from './lib/button/button.component';
 export type { EcwButtonVariant } from './lib/button/button.component';
+
+/* Checkbox & Radio (PE-256841) */
+export { EcwCheckboxComponent } from './lib/checkbox/checkbox.component';
+export { EcwRadioComponent } from './lib/radio/radio.component';

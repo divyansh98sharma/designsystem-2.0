@@ -1,0 +1,40 @@
+<label class="ecw-checkbox__root" [class.ecw-checkbox--disabled]="disabled()">
+  <input
+    class="ecw-checkbox__input"
+    type="checkbox"
+    [id]="inputId()"
+    [checked]="checked()"
+    [indeterminate]="indeterminate()"
+    [disabled]="disabled()"
+    [required]="required()"
+    [attr.name]="name() ?? null"
+    [attr.value]="value() ?? null"
+    [attr.aria-label]="ariaLabel() ?? null"
+    (change)="onChange($event)"
+  />
+
+  <span class="ecw-checkbox__control" aria-hidden="true">
+    <svg class="ecw-checkbox__mark" viewBox="0 0 16 16" fill="none" focusable="false">
+      <path
+        class="ecw-checkbox__check"
+        d="M4 8.5 6.8 11.2 12 5.5"
+        stroke="currentColor"
+        stroke-width="1.75"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <line
+        class="ecw-checkbox__dash"
+        x1="4"
+        y1="8"
+        x2="12"
+        y2="8"
+        stroke="currentColor"
+        stroke-width="1.75"
+        stroke-linecap="round"
+      />
+    </svg>
+  </span>
+
+  <span class="ecw-checkbox__label"><ng-content /></span>
+</label>

@@ -1,0 +1,20 @@
+<label class="ecw-radio__root" [class.ecw-radio--disabled]="disabled()">
+  <input
+    class="ecw-radio__input"
+    type="radio"
+    [id]="inputId()"
+    [checked]="checked()"
+    [disabled]="disabled()"
+    [required]="required()"
+    [attr.name]="name() ?? null"
+    [attr.value]="value() ?? null"
+    [attr.aria-label]="ariaLabel() ?? null"
+    (change)="onChange($event)"
+  />
+
+  <span class="ecw-radio__control" aria-hidden="true">
+    <span class="ecw-radio__dot"></span>
+  </span>
+
+  <span class="ecw-radio__label"><ng-content /></span>
+</label>

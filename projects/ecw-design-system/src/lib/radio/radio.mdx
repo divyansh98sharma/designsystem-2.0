@@ -1,0 +1,85 @@
+import { Meta, Canvas, Controls, ArgTypes, Primary } from '@storybook/addon-docs/blocks';
+import * as RadioStories from './radio.stories';
+
+<Meta of={RadioStories} />
+
+# Radio
+
+The design-system radio button (`<ecw-radio>`) — token-driven from the Figma
+`radio button` component tokens. It wraps a visually-hidden native
+`<input type="radio">`, so keyboard navigation, focus, `disabled` and form
+participation are native and accessible by default.
+
+<Primary />
+
+---
+
+## Usage
+
+Group radios by giving them the same `name`. The browser then enforces
+single-selection and roving (arrow-key) focus for free.
+
+```ts
+import { EcwRadioComponent } from '@ecw/design-system';
+
+@Component({
+  imports: [EcwRadioComponent],
+  template: `
+    <div role="radiogroup" aria-label="Plan">
+      <ecw-radio name="plan" value="free" [(checked)]="isFree">Free</ecw-radio>
+      <ecw-radio name="plan" value="pro">Pro</ecw-radio>
+      <ecw-radio name="plan" value="team">Team</ecw-radio>
+    </div>
+  `,
+})
+export class MyComponent {
+  isFree = true;
+}
+```
+
+<Canvas of={RadioStories.Group} />
+
+---
+
+## States
+
+Unchecked and checked, each with default / hover / disabled treatments driven by
+the native input.
+
+<Canvas of={RadioStories.States} />
+
+<Canvas of={RadioStories.Disabled} />
+
+---
+
+## Guidelines
+
+**Do**
+
+- Use a radio group for **mutually-exclusive** choices (exactly one selected).
+- Give every radio in a group the same `name`, and a unique `value`.
+- Wrap the group in `role="radiogroup"` with an `aria-label` (or a visible legend).
+- Provide 2+ options — a lone radio that can't be unchecked should be a [Checkbox](?path=/docs/components-checkbox--docs).
+
+**Don't**
+
+- Don't use radios for independent on/off toggles — use a [Checkbox](?path=/docs/components-checkbox--docs).
+- Don't omit `name` — without it the browser won't group the radios or enforce single-selection.
+
+---
+
+## Accessibility
+
+- **Keyboard**: native `<input type="radio">` — Tab moves into the group, arrow keys move between options.
+- **Single selection**: enforced by the browser for radios sharing a `name`.
+- **Disabled**: uses the native `disabled` attribute, so it's removed from the tab order.
+- **Focus**: a `focus-visible` outline is shown for keyboard users.
+- **Label**: clicking the projected label selects the control (it's wrapped in a `<label>`).
+
+---
+
+## API
+
+<Controls of={RadioStories.Playground} />
+
+<ArgTypes of={RadioStories.Playground} />

@@ -1,0 +1,86 @@
+import { Meta, Canvas, Controls, ArgTypes, Primary } from '@storybook/addon-docs/blocks';
+import * as CheckboxStories from './checkbox.stories';
+
+<Meta of={CheckboxStories} />
+
+# Checkbox
+
+The design-system checkbox (`<ecw-checkbox>`) — token-driven from the Figma
+`checkbox` component tokens. It wraps a visually-hidden native
+`<input type="checkbox">`, so keyboard, focus, `disabled` and form participation
+are native and accessible by default.
+
+<Primary />
+
+---
+
+## Usage
+
+```ts
+import { EcwCheckboxComponent } from '@ecw/design-system';
+
+@Component({
+  imports: [EcwCheckboxComponent],
+  template: `
+    <ecw-checkbox [(checked)]="accepted" name="terms" value="yes">
+      Accept terms
+    </ecw-checkbox>
+  `,
+})
+export class MyComponent {
+  accepted = false;
+}
+```
+
+The label is projected via content. The checked state is two-way bindable with
+`[(checked)]` (or listen to `(checkedChange)`).
+
+---
+
+## States
+
+Three selection states — unchecked, checked and indeterminate — each with
+default / hover / disabled treatments driven by the native input.
+
+<Canvas of={CheckboxStories.States} />
+
+`indeterminate` is independent of `checked`: it shows a dash and maps to the
+native `indeterminate` DOM property so assistive tech announces **mixed**. It's
+typically used for a "select all" that is partially selected.
+
+<Canvas of={CheckboxStories.Disabled} />
+
+---
+
+## Guidelines
+
+**Do**
+
+- Project a visible label, or set `ariaLabel` when the checkbox stands alone (e.g. a row selector).
+- Use `indeterminate` only for parent/"select all" controls that are partially selected.
+- Drive `checked` from your state with `[(checked)]`.
+
+**Don't**
+
+- Don't ship a checkbox with no label and no `ariaLabel` — it has no accessible name.
+- Don't use a checkbox for mutually-exclusive choices — use a [Radio](?path=/docs/components-radio--docs) group.
+
+---
+
+## Accessibility
+
+- **Keyboard**: native `<input type="checkbox">` — Tab to focus, Space to toggle.
+- **Disabled**: uses the native `disabled` attribute, so it's removed from the tab order.
+- **Focus**: a `focus-visible` outline is shown for keyboard users.
+- **Indeterminate**: announced as `mixed` via the native DOM property.
+- **Label**: clicking the projected label toggles the control (it's wrapped in a `<label>`).
+
+<Canvas of={CheckboxStories.NoLabel} />
+
+---
+
+## API
+
+<Controls of={CheckboxStories.Playground} />
+
+<ArgTypes of={CheckboxStories.Playground} />
