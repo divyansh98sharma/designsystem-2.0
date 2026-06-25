@@ -90,3 +90,22 @@ export const Disabled: Story = {
     `,
   }),
 };
+
+/**
+ * Dark mode. Opt in by setting `data-theme="dark"` on any ancestor — the tokens
+ * flip via the cascade (no component API change). Unchecked becomes a filled
+ * grey circle with a light ring; checked keeps the teal ring + dot on a white
+ * interior.
+ */
+export const DarkMode: Story = {
+  parameters: { backgrounds: { default: 'dark' } },
+  render: () => ({
+    template: `
+      <div data-theme="dark" role="radiogroup" aria-label="Plan" style="display:flex; flex-direction:column; gap:12px; align-items:flex-start; padding:24px; background:#0f172a; border-radius:8px;">
+        <ecw-radio name="dplan" value="free" [checked]="true">Free</ecw-radio>
+        <ecw-radio name="dplan" value="pro">Pro</ecw-radio>
+        <ecw-radio name="dplan" value="team" disabled>Team (disabled)</ecw-radio>
+      </div>
+    `,
+  }),
+};

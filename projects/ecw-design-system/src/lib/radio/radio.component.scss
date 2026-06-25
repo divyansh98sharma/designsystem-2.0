@@ -76,6 +76,7 @@
 /* ----- checked ----- */
 .ecw-radio__input:checked + .ecw-radio__control {
   border-color: var(--ecw-radio-control-ring-checked-default);
+  background: var(--ecw-radio-control-background-checked-default);
 }
 .ecw-radio__input:checked + .ecw-radio__control .ecw-radio__dot {
   background: var(--ecw-radio-control-dot-checked-default);
@@ -84,6 +85,7 @@
   .ecw-radio__input:checked:not(:disabled)
   + .ecw-radio__control {
   border-color: var(--ecw-radio-control-ring-checked-hover);
+  background: var(--ecw-radio-control-background-checked-hover);
 }
 .ecw-radio__root:hover
   .ecw-radio__input:checked:not(:disabled)
@@ -99,6 +101,7 @@
 }
 .ecw-radio__input:disabled:checked + .ecw-radio__control {
   border-color: var(--ecw-radio-control-ring-checked-disabled);
+  background: var(--ecw-radio-control-background-checked-disabled);
 }
 .ecw-radio__input:disabled:checked + .ecw-radio__control .ecw-radio__dot {
   background: var(--ecw-radio-control-dot-checked-disabled);
