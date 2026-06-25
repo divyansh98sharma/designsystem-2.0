@@ -1,0 +1,141 @@
+:host {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.ecw-checkbox__root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ecw-checkbox-container-gap);
+  cursor: pointer;
+}
+.ecw-checkbox__root.ecw-checkbox--disabled {
+  cursor: not-allowed;
+}
+
+// Native input drives all state (checked / indeterminate / disabled / focus)
+// via the sibling combinator below. Visually hidden, but kept in the layout's
+// focus order so keyboard + form participation stay native.
+.ecw-checkbox__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ecw-checkbox__control {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-width: var(--ecw-checkbox-control-min-width);
+  max-width: var(--ecw-checkbox-control-max-width);
+  min-height: var(--ecw-checkbox-control-min-height);
+  max-height: var(--ecw-checkbox-control-max-height);
+  border: 1px solid var(--ecw-checkbox-control-box-unchecked-default);
+  border-radius: var(--ecw-radius-small);
+  background: var(--ecw-checkbox-control-background-unchecked-default);
+  // `color` drives the SVG mark (stroke="currentColor"); no mark shown unchecked.
+  color: transparent;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.ecw-checkbox__mark {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ecw-checkbox__check,
+.ecw-checkbox__dash {
+  display: none;
+}
+
+.ecw-checkbox__label {
+  color: var(--ecw-checkbox-label-text-default);
+  font-family: var(--ecw-checkbox-label-font-family);
+  font-size: var(--ecw-checkbox-label-font-size);
+  font-weight: var(--ecw-checkbox-label-font-weight);
+  line-height: var(--ecw-checkbox-label-line-height);
+  letter-spacing: var(--ecw-checkbox-label-letter-spacing);
+}
+// Collapse the label box when nothing is projected, so the gap doesn't show.
+.ecw-checkbox__label:empty {
+  display: none;
+}
+
+/* ----- hover (unchecked) ----- */
+.ecw-checkbox__root:hover
+  .ecw-checkbox__input:not(:disabled):not(:checked):not(:indeterminate)
+  + .ecw-checkbox__control {
+  border-color: var(--ecw-checkbox-control-box-unchecked-hover);
+  background: var(--ecw-checkbox-control-background-unchecked-hover);
+}
+
+/* ----- checked ----- */
+.ecw-checkbox__input:checked:not(:indeterminate) + .ecw-checkbox__control {
+  border-color: var(--ecw-checkbox-control-box-checked-default);
+  background: var(--ecw-checkbox-control-background-checked-default);
+  color: var(--ecw-checkbox-control-mark-checked-default);
+}
+.ecw-checkbox__input:checked:not(:indeterminate)
+  + .ecw-checkbox__control
+  .ecw-checkbox__check {
+  display: block;
+}
+.ecw-checkbox__root:hover
+  .ecw-checkbox__input:checked:not(:indeterminate):not(:disabled)
+  + .ecw-checkbox__control {
+  border-color: var(--ecw-checkbox-control-box-checked-hover);
+  background: var(--ecw-checkbox-control-background-checked-hover);
+  color: var(--ecw-checkbox-control-mark-checked-hover);
+}
+
+/* ----- indeterminate (uses the unchecked outline + a teal dash) ----- */
+.ecw-checkbox__input:indeterminate + .ecw-checkbox__control {
+  border-color: var(--ecw-checkbox-control-box-unchecked-default);
+  background: var(--ecw-checkbox-control-background-indeterminate-default);
+  color: var(--ecw-checkbox-control-mark-indeterminate-default);
+}
+.ecw-checkbox__input:indeterminate + .ecw-checkbox__control .ecw-checkbox__dash {
+  display: block;
+}
+.ecw-checkbox__input:indeterminate + .ecw-checkbox__control .ecw-checkbox__check {
+  display: none;
+}
+.ecw-checkbox__root:hover
+  .ecw-checkbox__input:indeterminate:not(:disabled)
+  + .ecw-checkbox__control {
+  border-color: var(--ecw-checkbox-control-box-unchecked-hover);
+  background: var(--ecw-checkbox-control-background-indeterminate-hover);
+  color: var(--ecw-checkbox-control-mark-indeterminate-hover);
+}
+
+/* ----- disabled (wins over the above) ----- */
+.ecw-checkbox__input:disabled:not(:checked):not(:indeterminate)
+  + .ecw-checkbox__control {
+  border-color: var(--ecw-checkbox-control-box-unchecked-disabled);
+  background: var(--ecw-checkbox-control-background-unchecked-disabled);
+}
+.ecw-checkbox__input:disabled:checked:not(:indeterminate)
+  + .ecw-checkbox__control,
+.ecw-checkbox__input:disabled:indeterminate + .ecw-checkbox__control {
+  border-color: var(--ecw-checkbox-control-box-checked-disabled);
+  background: var(--ecw-checkbox-control-background-checked-disabled);
+  color: var(--ecw-checkbox-control-mark-checked-disabled);
+}
+.ecw-checkbox--disabled .ecw-checkbox__label {
+  color: var(--ecw-checkbox-label-text-disabled);
+}
+
+/* ----- focus-visible ring (accessibility addition; no focus token in Figma) ----- */
+.ecw-checkbox__input:focus-visible + .ecw-checkbox__control {
+  outline: 2px solid var(--ecw-color-teal-700);
+  outline-offset: 1px;
+}

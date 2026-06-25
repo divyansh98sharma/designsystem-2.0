@@ -1,0 +1,114 @@
+:host {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.ecw-radio__root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ecw-radio-container-gap);
+  cursor: pointer;
+}
+.ecw-radio__root.ecw-radio--disabled {
+  cursor: not-allowed;
+}
+
+// Native input drives all state via the sibling combinator below. Visually
+// hidden, but kept focusable so keyboard (arrow-key group nav) + form
+// participation stay native.
+.ecw-radio__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ecw-radio__control {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-width: var(--ecw-radio-control-min-width);
+  max-width: var(--ecw-radio-control-max-width);
+  min-height: var(--ecw-radio-control-min-height);
+  max-height: var(--ecw-radio-control-max-height);
+  border: 1px solid var(--ecw-radio-control-ring-unchecked-default);
+  border-radius: 50%;
+  background: var(--ecw-radio-control-background-unchecked-default);
+  transition: border-color 120ms ease, background-color 120ms ease;
+}
+
+.ecw-radio__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: transparent;
+  transition: background-color 120ms ease;
+}
+
+.ecw-radio__label {
+  color: var(--ecw-radio-label-text-default);
+  font-family: var(--ecw-radio-label-font-family);
+  font-size: var(--ecw-radio-label-font-size);
+  font-weight: var(--ecw-radio-label-font-weight);
+  line-height: var(--ecw-radio-label-line-height);
+  letter-spacing: var(--ecw-radio-label-letter-spacing);
+}
+.ecw-radio__label:empty {
+  display: none;
+}
+
+/* ----- hover (unchecked) ----- */
+.ecw-radio__root:hover
+  .ecw-radio__input:not(:disabled):not(:checked)
+  + .ecw-radio__control {
+  border-color: var(--ecw-radio-control-ring-unchecked-hover);
+  background: var(--ecw-radio-control-background-unchecked-hover);
+}
+
+/* ----- checked ----- */
+.ecw-radio__input:checked + .ecw-radio__control {
+  border-color: var(--ecw-radio-control-ring-checked-default);
+}
+.ecw-radio__input:checked + .ecw-radio__control .ecw-radio__dot {
+  background: var(--ecw-radio-control-dot-checked-default);
+}
+.ecw-radio__root:hover
+  .ecw-radio__input:checked:not(:disabled)
+  + .ecw-radio__control {
+  border-color: var(--ecw-radio-control-ring-checked-hover);
+}
+.ecw-radio__root:hover
+  .ecw-radio__input:checked:not(:disabled)
+  + .ecw-radio__control
+  .ecw-radio__dot {
+  background: var(--ecw-radio-control-dot-checked-hover);
+}
+
+/* ----- disabled (wins over the above) ----- */
+.ecw-radio__input:disabled:not(:checked) + .ecw-radio__control {
+  border-color: var(--ecw-radio-control-ring-unchecked-disabled);
+  background: var(--ecw-radio-control-background-disabled-default);
+}
+.ecw-radio__input:disabled:checked + .ecw-radio__control {
+  border-color: var(--ecw-radio-control-ring-checked-disabled);
+}
+.ecw-radio__input:disabled:checked + .ecw-radio__control .ecw-radio__dot {
+  background: var(--ecw-radio-control-dot-checked-disabled);
+}
+.ecw-radio--disabled .ecw-radio__label {
+  color: var(--ecw-radio-label-text-disabled);
+}
+
+/* ----- focus-visible ring (accessibility addition; no focus token in Figma) ----- */
+.ecw-radio__input:focus-visible + .ecw-radio__control {
+  outline: 2px solid var(--ecw-color-teal-700);
+  outline-offset: 1px;
+}

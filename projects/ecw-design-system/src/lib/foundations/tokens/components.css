@@ -174,4 +174,38 @@
   --ecw-checkbox-label-font-weight: var(--ecw-typography-label-small-font-weight);  /* Regular */
   --ecw-checkbox-label-line-height: var(--ecw-typography-label-small-line-height);  /* 16 */
   --ecw-checkbox-label-letter-spacing: var(--ecw-typography-label-small-letter-spacing);  /* 0 */
+
+  /* radio */
+  --ecw-radio-container-gap: var(--ecw-space-x-small);  /* 4 */
+  --ecw-radio-control-min-width: var(--ecw-size-x-small);  /* 16 */
+  --ecw-radio-control-max-width: var(--ecw-size-x-small);  /* 16 */
+  --ecw-radio-control-min-height: var(--ecw-size-x-small);  /* 16 */
+  --ecw-radio-control-max-height: var(--ecw-size-x-small);  /* 16 */
+
+  /* radio — interior (the unfilled circle background) */
+  --ecw-radio-control-background-unchecked-default: var(--ecw-background-interactive-control-unchecked-default);  /* #FFFFFF */
+  --ecw-radio-control-background-unchecked-hover: var(--ecw-background-interactive-control-unchecked-hover);  /* #FFFFFF */
+  --ecw-radio-control-background-disabled-default: var(--ecw-background-interactive-control-disabled-default);  /* #FFFFFF */
+
+  /* radio — ring (outline) */
+  --ecw-radio-control-ring-unchecked-default: var(--ecw-indicator-interactive-control-unchecked-default);  /* #717171 */
+  --ecw-radio-control-ring-unchecked-hover: var(--ecw-indicator-interactive-control-unchecked-hover);  /* #4B4B4B */
+  --ecw-radio-control-ring-unchecked-disabled: var(--ecw-indicator-interactive-control-unchecked-disabled);  /* #BCBCBC */
+  --ecw-radio-control-ring-checked-default: var(--ecw-indicator-interactive-control-checked-default);  /* #007B95 */
+  --ecw-radio-control-ring-checked-hover: var(--ecw-indicator-interactive-control-checked-hover);  /* #02506F */
+  --ecw-radio-control-ring-checked-disabled: var(--ecw-indicator-interactive-control-checked-disabled);  /* #BCBCBC */
+
+  /* radio — dot (selected indicator) */
+  --ecw-radio-control-dot-checked-default: var(--ecw-indicator-interactive-control-checked-default);  /* #007B95 */
+  --ecw-radio-control-dot-checked-hover: var(--ecw-indicator-interactive-control-checked-hover);  /* #02506F */
+  --ecw-radio-control-dot-checked-disabled: var(--ecw-indicator-interactive-control-checked-disabled);  /* #BCBCBC */
+
+  /* radio — label */
+  --ecw-radio-label-text-default: var(--ecw-text-interactive-control-default);  /* #000000 */
+  --ecw-radio-label-text-disabled: var(--ecw-text-interactive-control-disabled);  /* #969696 */
+  --ecw-radio-label-font-family: var(--ecw-typography-label-small-font-family);  /* Inter */
+  --ecw-radio-label-font-size: var(--ecw-typography-label-small-font-size);  /* 12 */
+  --ecw-radio-label-font-weight: var(--ecw-typography-label-small-font-weight);  /* Regular */
+  --ecw-radio-label-line-height: var(--ecw-typography-label-small-line-height);  /* 16 */
+  --ecw-radio-label-letter-spacing: var(--ecw-typography-label-small-letter-spacing);  /* 0 */
 }
