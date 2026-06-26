@@ -118,7 +118,9 @@
 .ecw-breadcrumbs__popover {
   position: absolute;
   top: calc(100% + 8px);
-  left: 0;
+  // Figma offsets the tooltip 8px left of the "…" box so its notch points at
+  // the trigger centre.
+  left: -8px;
   z-index: 10;
   display: inline-flex;
   align-items: center;
@@ -128,6 +130,20 @@
   padding: var(--ecw-breadcrumb-popover-padding);
   border-radius: var(--ecw-breadcrumb-popover-radius);
   background: var(--ecw-breadcrumb-popover-background);
+
+  // Notch: a small triangle at the top edge pointing up to the "…" trigger
+  // (the trigger centre sits ~20px in from the popover's left edge).
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 14px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid var(--ecw-breadcrumb-popover-background);
+  }
 }
 
 .ecw-breadcrumbs__popover-link {
