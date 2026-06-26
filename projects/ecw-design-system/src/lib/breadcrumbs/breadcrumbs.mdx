@@ -1,0 +1,104 @@
+import { Meta, Canvas, Controls, ArgTypes, Primary } from '@storybook/addon-docs/blocks';
+import * as BreadcrumbsStories from './breadcrumbs.stories';
+
+<Meta of={BreadcrumbsStories} />
+
+# Breadcrumbs
+
+The design-system breadcrumb trail (`<ecw-breadcrumbs>`) — token-driven from the
+Figma `breadcrumbs` component tokens. It renders a native `<nav><ol>` of links
+separated by chevrons; the last item is the current page (semibold,
+`aria-current="page"`, not a link).
+
+<Primary />
+
+---
+
+## Usage
+
+```ts
+import { EcwBreadcrumbsComponent, EcwBreadcrumbItem } from '@ecw/design-system';
+
+@Component({
+  imports: [EcwBreadcrumbsComponent],
+  template: `
+    <ecw-breadcrumbs [items]="trail" (itemSelect)="go($event)"></ecw-breadcrumbs>
+  `,
+})
+export class MyComponent {
+  trail: EcwBreadcrumbItem[] = [
+    { label: 'Home', href: '/' },
+    { label: 'Library', href: '/library' },
+    { label: 'Breadcrumbs' }, // last = current page (no href)
+  ];
+  go(e) { /* e.item, e.index — e.g. router.navigate */ }
+}
+```
+
+Items with an `href` render as links; the **last** item is always treated as the
+current page (rendered as bold text, regardless of `href`). `(itemSelect)` fires
+on link activation with the item and its original index.
+
+---
+
+## Levels
+
+Levels 1–3 render every item.
+
+<Canvas of={BreadcrumbsStories.Levels} />
+
+---
+
+## Collapsing long trails
+
+From `maxItems` upward (default 4) the middle items collapse into a "…" trigger;
+`itemsBeforeCollapse` (default 1) and `itemsAfterCollapse` (default 1) stay
+visible. Clicking the trigger opens a popover listing the collapsed items; it
+closes on outside click or Escape.
+
+<Canvas of={BreadcrumbsStories.Collapsed} />
+
+<Canvas of={BreadcrumbsStories.WithPopover} />
+
+---
+
+## Dark mode
+
+Opt in with `data-theme="dark"` on any ancestor — links lighten, the current page
+goes white, and the open "…" box turns dark teal. The popover is a dark slate
+tooltip in both themes.
+
+<Canvas of={BreadcrumbsStories.DarkMode} />
+
+---
+
+## Guidelines
+
+**Do**
+
+- Order items root → current page; keep the current page as the last item.
+- Keep labels short; long labels truncate with an ellipsis at ~220px.
+- Collapse deep trails rather than wrapping them onto two lines.
+
+**Don't**
+
+- Don't give the current (last) item a link — it represents the page you're on.
+- Don't use breadcrumbs as primary navigation; they're a secondary "where am I" aid.
+
+---
+
+## Accessibility
+
+- **Landmark**: wrapped in `<nav aria-label="Breadcrumb">` with an ordered `<ol>`.
+- **Current page**: the last item carries `aria-current="page"`.
+- **Separators**: decorative chevrons are `aria-hidden`.
+- **Collapse trigger**: a real `<button>` with `aria-haspopup` + `aria-expanded`; the popover closes on Escape and outside click.
+- **Keyboard**: links and the trigger are natively focusable; focus-visible outlines are shown.
+
+---
+
+## API
+
+<Controls of={BreadcrumbsStories.Playground} />
+
+<ArgTypes of={BreadcrumbsStories.Playground} />

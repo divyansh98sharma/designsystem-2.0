@@ -211,6 +211,29 @@
   --ecw-radio-label-font-weight: var(--ecw-typography-label-small-font-weight);  /* Regular */
   --ecw-radio-label-line-height: var(--ecw-typography-label-small-line-height);  /* 16 */
   --ecw-radio-label-letter-spacing: var(--ecw-typography-label-small-letter-spacing);  /* 0 */
+
+  /* breadcrumbs */
+  --ecw-breadcrumb-container-gap: var(--ecw-space-x-small);  /* 4 */
+  --ecw-breadcrumb-item-max-width: 220px;  /* NOTE: raw value — not aliased in Figma */
+  --ecw-breadcrumb-item-font-family: var(--ecw-typography-label-small-font-family);  /* Inter */
+  --ecw-breadcrumb-item-font-size: var(--ecw-typography-label-small-font-size);  /* 12 */
+  --ecw-breadcrumb-item-line-height: var(--ecw-typography-label-small-line-height);  /* 16 */
+  --ecw-breadcrumb-item-letter-spacing: var(--ecw-typography-label-small-letter-spacing);  /* 0 */
+  --ecw-breadcrumb-link-font-weight: var(--ecw-typography-font-weight-regular);  /* 400 */
+  --ecw-breadcrumb-current-font-weight: var(--ecw-typography-font-weight-semi-bold);  /* 600 */
+  --ecw-breadcrumb-link-text-default: #4b586b;  /* NOTE: raw value — not aliased in Figma */
+  --ecw-breadcrumb-current-text-default: var(--ecw-text-content-default);  /* #000000 */
+  --ecw-breadcrumb-separator-color-default: #4b586b;  /* NOTE: raw — matches the link colour */
+  --ecw-breadcrumb-more-text-default: #4b586b;  /* NOTE: raw — the collapsed "…" trigger */
+  --ecw-breadcrumb-more-active-text: #4b586b;  /* NOTE: raw — "…" dots while the popover is open */
+  --ecw-breadcrumb-more-active-background: #e6f4f3;  /* NOTE: raw — not aliased in Figma */
+  --ecw-breadcrumb-more-active-border: #3ecfbe;  /* NOTE: raw — not aliased in Figma */
+  --ecw-breadcrumb-more-active-radius: var(--ecw-radius-medium);  /* 4 */
+  --ecw-breadcrumb-popover-background: #4b586b;  /* NOTE: raw slate — same in light & dark */
+  --ecw-breadcrumb-popover-text-default: var(--ecw-text-content-inverse-default);  /* #FFFFFF */
+  --ecw-breadcrumb-popover-radius: var(--ecw-radius-medium);  /* 4 */
+  --ecw-breadcrumb-popover-padding: var(--ecw-padding-small);  /* 8 */
+  --ecw-breadcrumb-popover-gap: var(--ecw-space-x-small);  /* 4 */
 }
 
 /**
@@ -266,6 +289,16 @@
   /* radio — label */
   --ecw-radio-label-text-default: #ffffff;
   --ecw-radio-label-text-disabled: #bcbcbc;
+
+  /* breadcrumbs — links lighten, current goes white, the active "…" box goes
+     dark teal. The popover is a dark slate tooltip in both modes (unchanged). */
+  --ecw-breadcrumb-link-text-default: #d1d5db;
+  --ecw-breadcrumb-current-text-default: #ffffff;
+  --ecw-breadcrumb-separator-color-default: #d1d5db;
+  --ecw-breadcrumb-more-text-default: #d1d5db;
+  --ecw-breadcrumb-more-active-text: #2dd4bf;
+  --ecw-breadcrumb-more-active-background: #134e4a;
+  --ecw-breadcrumb-more-active-border: #2dd4bf;
 }
 
 /**

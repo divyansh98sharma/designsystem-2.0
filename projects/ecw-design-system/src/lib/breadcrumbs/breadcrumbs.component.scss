@@ -1,0 +1,166 @@
+:host {
+  display: block;
+}
+
+.ecw-breadcrumbs__list {
+  display: flex;
+  align-items: center;
+  gap: var(--ecw-breadcrumb-container-gap);
+  flex-wrap: nowrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ecw-breadcrumbs__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ecw-breadcrumb-container-gap);
+  min-width: 0;
+}
+
+// Shared label typography for links, the current page and popover entries.
+.ecw-breadcrumbs__link,
+.ecw-breadcrumbs__current,
+.ecw-breadcrumbs__popover-link {
+  font-family: var(--ecw-breadcrumb-item-font-family);
+  font-size: var(--ecw-breadcrumb-item-font-size);
+  line-height: var(--ecw-breadcrumb-item-line-height);
+  letter-spacing: var(--ecw-breadcrumb-item-letter-spacing);
+  max-width: var(--ecw-breadcrumb-item-max-width);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ecw-breadcrumbs__link {
+  color: var(--ecw-breadcrumb-link-text-default);
+  font-weight: var(--ecw-breadcrumb-link-font-weight);
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+  &:focus-visible {
+    outline: 2px solid var(--ecw-color-teal-700);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+.ecw-breadcrumbs__current {
+  color: var(--ecw-breadcrumb-current-text-default);
+  font-weight: var(--ecw-breadcrumb-current-font-weight);
+}
+
+// Chevron separator. Colour drives the inline SVG via currentColor.
+.ecw-breadcrumbs__sep {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  color: var(--ecw-breadcrumb-separator-color-default);
+
+  svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+  }
+}
+
+/* ----- collapsed "…" trigger ----- */
+.ecw-breadcrumbs__more-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.ecw-breadcrumbs__more {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--ecw-breadcrumb-more-active-radius);
+  background: transparent;
+  color: var(--ecw-breadcrumb-more-text-default);
+  cursor: pointer;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+  }
+
+  &:hover {
+    color: var(--ecw-breadcrumb-more-active-text);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--ecw-color-teal-700);
+    outline-offset: 1px;
+  }
+}
+
+// Open state: the teal-bordered active box from the Figma "with popover" variant.
+.ecw-breadcrumbs__more--open {
+  background: var(--ecw-breadcrumb-more-active-background);
+  border-color: var(--ecw-breadcrumb-more-active-border);
+  color: var(--ecw-breadcrumb-more-active-text);
+}
+
+/* ----- popover listing the collapsed items ----- */
+.ecw-breadcrumbs__popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  // Figma offsets the tooltip 8px left of the "…" box so its notch points at
+  // the trigger centre.
+  left: -8px;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ecw-breadcrumb-popover-gap);
+  width: max-content;
+  max-width: 512px;
+  padding: var(--ecw-breadcrumb-popover-padding);
+  border-radius: var(--ecw-breadcrumb-popover-radius);
+  background: var(--ecw-breadcrumb-popover-background);
+
+  // Notch: a small triangle at the top edge pointing up to the "…" trigger
+  // (the trigger centre sits ~20px in from the popover's left edge).
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 14px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid var(--ecw-breadcrumb-popover-background);
+  }
+}
+
+.ecw-breadcrumbs__popover-link {
+  color: var(--ecw-breadcrumb-popover-text-default);
+  font-weight: var(--ecw-breadcrumb-link-font-weight);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+  &:focus-visible {
+    outline: 2px solid var(--ecw-color-teal-700);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+.ecw-breadcrumbs__sep--popover {
+  color: var(--ecw-breadcrumb-popover-text-default);
+}

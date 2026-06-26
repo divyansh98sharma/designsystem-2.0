@@ -23,3 +23,10 @@ export type { EcwButtonVariant } from './lib/button/button.component';
 /* Checkbox & Radio (PE-256841) */
 export { EcwCheckboxComponent } from './lib/checkbox/checkbox.component';
 export { EcwRadioComponent } from './lib/radio/radio.component';
+
+/* Breadcrumbs (PE-256838) */
+export { EcwBreadcrumbsComponent } from './lib/breadcrumbs/breadcrumbs.component';
+export type {
+  EcwBreadcrumbItem,
+  EcwBreadcrumbSelect,
+} from './lib/breadcrumbs/breadcrumbs.component';
