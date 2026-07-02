@@ -23,3 +23,7 @@ export type { EcwButtonVariant } from './lib/button/button.component';
 /* Checkbox & Radio (PE-256841) */
 export { EcwCheckboxComponent } from './lib/checkbox/checkbox.component';
 export { EcwRadioComponent } from './lib/radio/radio.component';
+
+/* Tooltip (PE-256840) */
+export { EcwTooltipComponent } from './lib/tooltip/tooltip.component';
+export type { EcwTooltipPosition } from './lib/tooltip/tooltip.component';

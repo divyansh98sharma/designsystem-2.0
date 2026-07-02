@@ -1,0 +1,98 @@
+:host {
+  box-sizing: border-box;
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-width: var(--ecw-tooltip-container-min-width);
+  max-width: var(--ecw-tooltip-container-max-width);
+  min-height: var(--ecw-tooltip-container-min-height);
+  max-height: var(--ecw-tooltip-container-max-height);
+  padding: var(--ecw-tooltip-container-padding-y)
+    var(--ecw-tooltip-container-padding-x);
+  border-radius: var(--ecw-tooltip-container-radius);
+  background: var(--ecw-tooltip-container-background-default);
+}
+
+.ecw-tooltip__label {
+  color: var(--ecw-tooltip-label-text-default);
+  font-family: var(--ecw-tooltip-label-font-family);
+  font-size: var(--ecw-tooltip-label-font-size);
+  font-weight: var(--ecw-tooltip-label-font-weight);
+  line-height: var(--ecw-tooltip-label-line-height);
+  letter-spacing: var(--ecw-tooltip-label-letter-spacing);
+  word-break: break-word;
+}
+
+/* ----- notch -----
+   A square rotated 45° so a corner points out past the edge; it reads its fill
+   from the bubble's background token, so it flips with the theme automatically.
+   The tip corner carries a small radius to match the Figma notch. The square is
+   centred across the edge with a negative margin (leaving `transform` free for
+   the rotation); alignment along the edge is set by the offset rules below. */
+:host::after {
+  content: '';
+  position: absolute;
+  width: var(--ecw-tooltip-notch-size);
+  height: var(--ecw-tooltip-notch-size);
+  background: var(--ecw-tooltip-container-background-default);
+  border-radius: var(--ecw-tooltip-notch-radius);
+  transform: rotate(45deg);
+}
+
+/* --- direction: seat the square's centre on the relevant edge --- */
+
+/* top-*: notch on the bottom edge, pointing down */
+:host([data-position^='top-'])::after {
+  top: 100%;
+  margin-top: calc(var(--ecw-tooltip-notch-size) / -2);
+}
+
+/* bottom-*: notch on the top edge, pointing up */
+:host([data-position^='bottom-'])::after {
+  top: 0;
+  margin-top: calc(var(--ecw-tooltip-notch-size) / -2);
+}
+
+/* left-*: notch on the right edge, pointing right */
+:host([data-position^='left-'])::after {
+  left: 100%;
+  margin-left: calc(var(--ecw-tooltip-notch-size) / -2);
+}
+
+/* right-*: notch on the left edge, pointing left */
+:host([data-position^='right-'])::after {
+  left: 0;
+  margin-left: calc(var(--ecw-tooltip-notch-size) / -2);
+}
+
+/* --- alignment along a horizontal edge (top-* / bottom-*) --- */
+:host([data-position='top-left'])::after,
+:host([data-position='bottom-left'])::after {
+  left: var(--ecw-tooltip-notch-inset);
+}
+:host([data-position='top-center'])::after,
+:host([data-position='bottom-center'])::after {
+  left: 50%;
+  margin-left: calc(var(--ecw-tooltip-notch-size) / -2);
+}
+:host([data-position='top-right'])::after,
+:host([data-position='bottom-right'])::after {
+  right: var(--ecw-tooltip-notch-inset);
+}
+
+/* --- alignment along a vertical edge (left-* / right-*) --- */
+:host([data-position='left-top'])::after,
+:host([data-position='right-top'])::after {
+  top: var(--ecw-tooltip-notch-inset);
+}
+:host([data-position='left-center'])::after,
+:host([data-position='right-center'])::after {
+  top: 50%;
+  margin-top: calc(var(--ecw-tooltip-notch-size) / -2);
+}
+:host([data-position='left-bottom'])::after,
+:host([data-position='right-bottom'])::after {
+  bottom: var(--ecw-tooltip-notch-inset);
+}
