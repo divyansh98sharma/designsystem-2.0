@@ -211,6 +211,34 @@
   --ecw-radio-label-font-weight: var(--ecw-typography-label-small-font-weight);  /* Regular */
   --ecw-radio-label-line-height: var(--ecw-typography-label-small-line-height);  /* 16 */
   --ecw-radio-label-letter-spacing: var(--ecw-typography-label-small-letter-spacing);  /* 0 */
+
+  /* tooltip (PE-256840) */
+  --ecw-tooltip-container-padding-x: var(--ecw-padding-small);  /* 8 */
+  --ecw-tooltip-container-padding-y: var(--ecw-padding-x-small);  /* 4 */
+  --ecw-tooltip-container-radius: var(--ecw-radius-medium);  /* 4 */
+  --ecw-tooltip-container-min-width: 42px;
+  --ecw-tooltip-container-max-width: 512px;
+  --ecw-tooltip-container-min-height: var(--ecw-size-small);  /* 24 */
+  --ecw-tooltip-container-max-height: 76px;
+  /* Surface fill (light mode): a dark slate bubble. Baked into the Figma notch
+     asset rather than tokenised, and outside the neutral primitive scale, so a
+     literal is used here (dark mode overrides it below). */
+  --ecw-tooltip-container-background-default: #4b586b;
+
+  /* tooltip — notch geometry. The notch is a rotated square: its diagonal is
+     the visible base (~12px) and half of it protrudes past the edge (~6px). The
+     tip corner carries a small radius to match the Figma notch. */
+  --ecw-tooltip-notch-size: 8.5px;
+  --ecw-tooltip-notch-radius: 2px;
+  --ecw-tooltip-notch-inset: 10px;
+
+  /* tooltip — label */
+  --ecw-tooltip-label-text-default: var(--ecw-text-content-inverse-default);  /* #FFFFFF */
+  --ecw-tooltip-label-font-family: var(--ecw-typography-label-small-font-family);  /* Inter */
+  --ecw-tooltip-label-font-size: var(--ecw-typography-label-small-font-size);  /* 12 */
+  --ecw-tooltip-label-font-weight: var(--ecw-typography-label-small-font-weight);  /* Regular */
+  --ecw-tooltip-label-line-height: var(--ecw-typography-label-small-line-height);  /* 16 */
+  --ecw-tooltip-label-letter-spacing: var(--ecw-typography-label-small-letter-spacing);  /* 0 */
 }
 
 /**
@@ -266,6 +294,20 @@
   /* radio — label */
   --ecw-radio-label-text-default: #ffffff;
   --ecw-radio-label-text-disabled: #bcbcbc;
+}
+
+/**
+ * =============================================================================
+ * Dark mode — tooltip (Figma "Dark?=Yes" variants)
+ * =============================================================================
+ * The bubble inverts: light mode is a dark slate surface with white text; dark
+ * mode is a white surface with black text. The notch reads its colour from the
+ * background token, so it flips along with the surface automatically.
+ * =============================================================================
+ */
+[data-theme="dark"] {
+  --ecw-tooltip-container-background-default: #ffffff;
+  --ecw-tooltip-label-text-default: #000000;
 }
 
 /**

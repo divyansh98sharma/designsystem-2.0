@@ -1,0 +1,84 @@
+import { Meta, Canvas, Controls, ArgTypes, Primary } from '@storybook/addon-docs/blocks';
+import * as TooltipStories from './tooltip.stories';
+
+<Meta of={TooltipStories} />
+
+# Tooltip
+
+The design-system tooltip bubble (`<ecw-tooltip>`) — token-driven from the Figma
+`tooltip` component. It's a presentational popup with a directional notch: the
+component renders the bubble, and the consumer positions it next to a trigger and
+toggles its visibility (this keeps it consistent with the other purely-visual
+design-system components).
+
+<Primary />
+
+---
+
+## Usage
+
+```ts
+import { EcwTooltipComponent } from '@ecw/design-system';
+
+@Component({
+  imports: [EcwTooltipComponent],
+  template: `
+    <button aria-describedby="save-tip">Save</button>
+    <ecw-tooltip id="save-tip" position="bottom-center">
+      Saves your changes
+    </ecw-tooltip>
+  `,
+})
+export class MyComponent {}
+```
+
+The text is projected via content. Reference the tooltip's `id` from the trigger
+with `aria-describedby` so screen readers announce it.
+
+---
+
+## Positions
+
+Pick where the notch sits with `position` (12 values). The prefix is the edge the
+trigger sits on relative to the bubble — i.e. the way the notch points — and the
+suffix is the notch's alignment along that edge:
+
+- `top-*` — notch on the **bottom** edge (bubble sits above the trigger)
+- `bottom-*` — notch on the **top** edge (bubble sits below the trigger)
+- `left-*` — notch on the **right** edge (bubble sits left of the trigger)
+- `right-*` — notch on the **left** edge (bubble sits right of the trigger)
+
+<Canvas of={TooltipStories.Positions} />
+
+---
+
+## Dark mode
+
+Set `data-theme="dark"` on any ancestor and the surface flips from the dark slate
+bubble with white text to a white bubble with black text. The notch reads its
+colour from the surface token, so it follows automatically — no API change.
+
+<Canvas of={TooltipStories.DarkMode} />
+
+---
+
+## Guidelines
+
+**Do**
+
+- Keep the text short — the bubble caps at 512px wide and 76px tall.
+- Associate it with its trigger via `aria-describedby`.
+- Choose the `position` so the notch points at the element the tip describes.
+
+**Don't**
+
+- Don't put interactive controls (links, buttons) inside a tooltip.
+- Don't rely on the tooltip alone to convey essential information.
+
+---
+
+## API
+
+<Controls of={TooltipStories.Playground} />
+
+<ArgTypes of={TooltipStories.Playground} />
